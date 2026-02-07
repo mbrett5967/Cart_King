@@ -1,0 +1,42 @@
+# Visual Studio / .NET
+.vs/
+bin/
+obj/
+Debug/
+Release/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+TestResults/
+*.ncrunch*
+*.ide
+*.ide.*
+.vscode/
+# Rider
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Dependencies
+packages/
+.nuget/
+
+# Logs
+*.log
+logs/
+
+# Environment files
+.env
+.env.local
+
+# Build output
+dist/
+build/
+
+# ASP.NET specific
+appsettings.Development.json
+
+

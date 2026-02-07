@@ -1,0 +1,90 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 18px;
+  }
+}
+/* My custom page colours and text styles */
+:root {
+  --page-background:#DCE5F1;
+  --nav-background:#19222D;
+  --nav-text:#C8D0D8;
+  --text-main:#19222D;
+  --hover-text:#ffff; 
+  
+  --custom-font-heading:'Open Sans',sans-serif;
+  --custom-font-body:'Anton',sans-serif;
+}
+/* Nav bar colour */
+nav {
+  background-color: var(--nav-background) !important;
+
+}
+
+/* navbar text */
+nav a, 
+.navbar-brand, 
+.nav-link {
+  color: var(--nav-text) !important;
+  font-weight: 500;
+  text-transform:uppercase;
+  transition: color 0.3s ease-in-out;
+}
+
+
+/* For global page color and styles */
+body {
+  background-color: var(--page-background);
+  color: var(--text-main);
+  font-family: var(--custom-font-body);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* Headings to make it distinct from body text */
+h1,h2,h3 {
+  font-weight: 700;
+  color: var(--nav-background);
+  font-family: var(--custom-font-heading);
+}
+
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+/* Hover state custom colour */
+nav a, 
+.navbar-brand, 
+.nav-link:hover {
+  background-color: var(--nav-background);
+  color: var(--hover-text)!important;
+}
+
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
