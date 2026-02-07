@@ -23,22 +23,50 @@ html {
   --custom-font-heading:'Open Sans',sans-serif;
   --custom-font-body:'Anton',sans-serif;
 }
-/* Nav bar colour */
-nav {
-  background-color: var(--nav-background) !important;
 
+/* default nav */
+.custom-nav {
+    background-color: transparent !important;
+    padding: 0 !important;
 }
 
-/* navbar text */
-nav a, 
-.navbar-brand, 
+/* default link design */
 .nav-link {
-  color: var(--nav-text) !important;
-  font-weight: 500;
-  text-transform:uppercase;
-  transition: color 0.3s ease-in-out;
+    background-color: transparent !important;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px !important;
 }
 
+/* left navbar --- */
+.nav-left {
+    background-color: var(--nav-background) !important;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    border-radius: 0 0 10px 10px;
+}
+
+/* left navbar state */
+.nav-left .nav-link, .nav-left .navbar-brand {
+    color: var(--nav-text) !important;
+}
+
+
+/* right navbar */
+.nav-right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+/* right navbar state */
+.nav-right .nav-link {
+    color: var(--nav-background) !important;
+    background-color: transparent !important;
+    border-radius: 0 0 10px 10px;
+}
 
 /* For global page color and styles */
 body {
@@ -62,13 +90,18 @@ h1,h2,h3 {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
-/* Hover state custom colour */
-nav a, 
-.navbar-brand, 
-.nav-link:hover {
-  background-color: var(--nav-background);
-  color: var(--hover-text)!important;
+/* left nav hover state */
+.nav-left .nav-link:hover {
+    color: var(--hover-text) !important;
 }
+
+/* right nav hover state */
+.nav-right .nav-link:hover {
+    color: var(--hover-text) !important;
+    background-color: var(--nav-background) !important;
+}
+
+
 
 
 html {
