@@ -26,8 +26,9 @@ html {
 
 /* default nav */
 .custom-nav {
-    background-color: transparent !important;
+    background-color: transparent!important;
     padding: 0 !important;
+    text-transform: uppercase;
 }
 
 /* default link design */
@@ -39,18 +40,26 @@ html {
     padding: 10px 20px !important;
 }
 
-/* left navbar --- */
+/* left navbar */
 .nav-left {
     background-color: var(--nav-background) !important;
     display: flex;
-    align-items: center;
+    align-items:center;
     padding: 0 20px;
     border-radius: 0 0 10px 10px;
+}
+ /* logo */
+.logo img {
+    height: 100px;          
+    width: auto;
+    align-items:center;
 }
 
 /* left navbar state */
 .nav-left .nav-link, .nav-left .navbar-brand {
     color: var(--nav-text) !important;
+    font-size: larger;
+    margin-right: 10px;
 }
 
 
@@ -59,6 +68,8 @@ html {
     margin-left: auto;
     display: flex;
     align-items: center;
+    padding: 0 20px;
+    border-radius: 10px 10px 10px 10px;
 }
 
 /* right navbar state */
@@ -79,12 +90,6 @@ body {
 }
 
 /* Headings to make it distinct from body text */
-h1,h2,h3 {
-  font-weight: 700;
-  color: var(--nav-background);
-  font-family: var(--custom-font-heading);
-}
-
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
@@ -100,8 +105,6 @@ h1,h2,h3 {
     color: var(--hover-text) !important;
     background-color: var(--nav-background) !important;
 }
-
-
 
 
 html {
