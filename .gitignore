@@ -38,5 +38,6 @@ build/
 
 # ASP.NET specific
 appsettings.Development.json
+tasks.md
 
 
