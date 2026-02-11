@@ -1,0 +1,29 @@
+@model List<DealboardViewModel>
+
+<div class="deals-billboard">
+    @foreach (var deal in Model)
+    {
+        <div class="deal-slide">
+            <div class="deal-badge">🔥 HOT DEAL</div>
+
+            <img src="@deal.ImageUrl" alt="@deal.ProductName" />
+
+            <div class="deal-info">
+                <h3>@deal.ProductName</h3>
+                <p>@deal.ShortDescription</p>
+
+                <div class="prices">
+                    <span class="old-price">£@deal.OriginalPrice</span>
+                    <span class="sale-price">£@deal.SalePrice</span>
+                </div>
+
+                <a class="btn btn-primary"
+                   asp-controller="Products"
+                   asp-action="Details"
+                   asp-route-id="@deal.ProductId">
+                    View Deal
+                </a>
+            </div>
+        </div>
+    }
+</div>

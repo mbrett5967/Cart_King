@@ -1,4 +1,5 @@
 using Cart_King.Connected_Services;
+using Cart_King.Services;
 using Microsoft.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
 
@@ -11,6 +12,8 @@ builder.Services.AddDbContext<CartKingDbContext>(options =>
 
 // ... rest of your services
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<DealsService>();
+
 
 var app = builder.Build();
 
@@ -21,6 +24,7 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
 
 app.UseHttpsRedirection();
 app.UseRouting();

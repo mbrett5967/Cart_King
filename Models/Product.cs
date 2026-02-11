@@ -16,12 +16,19 @@ namespace Cart_King.Models
 
         public decimal Price { get; set; }
 
+        // For deals billboard
+        public string ShortDescription { get; set; } = string.Empty;
 
-
-        public string? ImageUrl { get; set; } = string.Empty;
+        public string ImageUrl { get; set; } = string.Empty; 
 
         public int StockQuantity { get; set; }
 
         public int CategoryId { get; set; }
+
+        public ICollection<SalesDeal> SalesDeals { get; set; } = new List<SalesDeal>();
+
+
+
+
     }
 }
