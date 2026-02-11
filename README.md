@@ -20,7 +20,7 @@
 
 
 ## 🚀 Overview
-Cart King is a technical showcase of **Relational Database Management** and **MVC Architecture**. It features a robust backend powered by PostgreSQL and Entity Framework Core, handling everything from product categorization to simulated order processing.
+Cart King is a technical showcase of **Relational Database Management** and **MVC Architecture**. It features a robust backend powered by PostgreSQL and Entity Framework Core, handling everything from product categorisation to simulated order processing using business rules, and dynamic content rather than UI design.
 
 The aim of this project is to showcase my progression as a Junior developer, displaying my ability to interact with a modern tech stack and hopefully cement confidence in my productivity and suitability to a development team.
 
@@ -43,7 +43,7 @@ Aims
 - 💳 Checkout process (currently simulated – ready for payment gateway integration)
 - ⭐ Buyer & seller ratings / reviews
 - 🔍 Advanced search & filtering (category, price range, condition, location...)
-- 📱 Responsive design (mobile-friendly layout)
+- 📱 Responsive design 
 - 🛡️ Basic security features (anti-forgery, input validation, HTTPS ready)
 - 👑 Admin panel (product moderation, user management, statistics)
 
