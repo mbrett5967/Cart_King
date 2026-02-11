@@ -17,6 +17,7 @@
 
 > All, including README subject to change. This will be updated as I progress further during my learning.
 
+<img <img width="1882" height="736" alt="image" src="https://github.com/user-attachments/assets/ab19911c-800e-40fb-99dd-d4386032de16" />
 
 
 ## 🚀 Overview
@@ -30,7 +31,9 @@ Aims
 
 * Understanding design-time tooling for Ef core migrations to run using an admin connection and app user
 * Database Schema Design - Implementing C# classes that define the database structure
-* Developing experience using Queries,
+* Developing experience using Queries,building ViewComponent logic
+* Experience in Bootstrap classes and CSS styling, such as hover states, Google fonts , imported icons and much more
+* Database seeding using OnModelCreating, implementing this with time oriented Views
 * and so much more - honestly the amount I have learned is monumental and I have made sure to include everything in my notes for future projects 
 
 
@@ -61,7 +64,7 @@ High-Level Architecture
 * PostgreSQL stores application data
 * Dependency Injection manages object lifetimes
 * Migrations manage schema evolution
-* Building a Scalable Razor View Architecture
+* Building a Scalable Razor View Architecture using Bootstrap classes
 
 
 
