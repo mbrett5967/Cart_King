@@ -35,7 +35,8 @@ namespace Cart_King.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.HasKey("CategoryId");
 
@@ -139,24 +140,25 @@ namespace Cart_King.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("numeric");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ShortDescription")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("StockQuantity")
                         .HasColumnType("integer");
 
                     b.HasKey("ProductId");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
 
@@ -198,7 +200,7 @@ namespace Cart_King.Migrations
                             ImageUrl = "https://media.currys.biz/i/currysprod/10282274?$l-large$&fmt=auto",
                             Name = "MSI MPG Infinite Z3 AI Gaming PC - AMD Ryzen 9, RTX 5080, 2 TB SSD",
                             Price = 2699.99m,
-                            ShortDescription = "This MSI Infinite Z3 packs a punch with its AMD Ryzen 9 Processor. That means it's great for top-tier gaming.",
+                            ShortDescription = "This MSI Infinite Z3 packs a punch with its AMD Ryzen 9 Processor.",
                             StockQuantity = 10
                         },
                         new
@@ -218,7 +220,7 @@ namespace Cart_King.Migrations
                             ImageUrl = "https://media.currys.biz/i/currysprod/10281815?$l-large$&fmt=auto",
                             Name = "NINTENDO Switch 2",
                             Price = 395.00m,
-                            ShortDescription = "Game anywhere with Nintendo Switch 2. Inside, it's got beefed up processing and graphics, which means it's ready to take on massive games",
+                            ShortDescription = "Game anywhere with Nintendo Switch 2.",
                             StockQuantity = 100
                         });
                 });
@@ -270,10 +272,21 @@ namespace Cart_King.Migrations
                     b.Navigation("Order");
                 });
 
+            modelBuilder.Entity("Cart_King.Models.Product", b =>
+                {
+                    b.HasOne("Cart_King.Models.Category", "Category")
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
             modelBuilder.Entity("Cart_King.Models.SalesDeal", b =>
                 {
                     b.HasOne("Cart_King.Models.Product", "Product")
-                        .WithMany("SalesDeals")
+                        .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -281,14 +294,14 @@ namespace Cart_King.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("Cart_King.Models.Category", b =>
+                {
+                    b.Navigation("Products");
+                });
+
             modelBuilder.Entity("Cart_King.Models.Order", b =>
                 {
                     b.Navigation("Items");
-                });
-
-            modelBuilder.Entity("Cart_King.Models.Product", b =>
-                {
-                    b.Navigation("SalesDeals");
                 });
 #pragma warning restore 612, 618
         }
