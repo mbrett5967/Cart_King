@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Cart_King.Controllers
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -25,7 +26,7 @@
                           <img src="~/images/ckLogo.png" alt="Cart King" />
                         </a>
                       <a class="nav-link" asp-controller="Business" asp-action="Index">Business</a>
-                      <a class="nav-link" asp-controller="Category" asp-action="Index">Buy</a>
+                      <a class="nav-link" asp-controller="Product" asp-action="Index">Buy</a>
                       <a class="nav-link" asp-controller="Category" asp-action="Index">Sell</a>
                  </div>
               </div>
@@ -34,8 +35,9 @@
                     <div class="navbar-nav">
                         <div class="row-center w-200">
                           <div class="col-md-12 offset-md-8">
-                             <form class="d-flex">
-                                 <input name="search string" class="form-control me-1" type="search" placeholder="Search our latest products.." aria-label="Search">
+                             <form class="d-flex" asp asp-controller="Product" asp-action="FetchSearch" method="get">
+                                
+                                 <input name="searchString" class="form-control me-1" type="search" placeholder="Search our latest products.." aria-label="Search">
                                  <button class="btn btn-dark" type="submit">Search by name</button>
                                 </form>
                            </div>

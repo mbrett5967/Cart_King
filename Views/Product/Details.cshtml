@@ -1,0 +1,40 @@
+@model Cart_King.Models.Product
+
+<div class="container mt-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Index">Products</a></li>
+            <li class="breadcrumb-item active">@Model.Category?.Name</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <div class="col-md-6 text-center">
+            <img src="@Model.ImageUrl" class="img-fluid rounded shadow-sm" alt="@Model.Name" style="max-height: 500px;">
+        </div>
+
+        <div class="col-md-6">
+            <h1 class="display-5 fw-bold">@Model.Name</h1>
+            <p class="text-muted">Brand: Cart King Hardware</p>
+            
+            <hr />
+            
+            <h3 class="text-success">£@Model.Price</h3>
+            
+            <div class="my-4">
+                <h5>About this item:</h5>
+                <p>@Model.ShortDescription</p>
+            </div>
+
+            <div class="card bg-light border-secondary p-3">
+                <p class="mb-1">Delivery: <span class="text-primary">FREE Delivery Tomorrow</span></p>
+                <p class="@(Model.StockQuantity > 0 ? "text-success" : "text-danger")">
+                    @(Model.StockQuantity > 0 ? $"In Stock ({Model.StockQuantity} available)" : "Out of Stock")
+                </p>
+                
+                <button class="btn btn-warning btn-lg w-100 rounded-pill mb-2">Add to Basket</button>
+                <button class="btn btn-orange btn-lg w-100 rounded-pill" style="background-color: #ffa41c;">Buy Now</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,1 +1,36 @@
-//shows all products relating to search
+@model IEnumerable<Product>
+    
+
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mt-5">
+            <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home" >Home</a></li>
+            
+        </ol>
+    </nav>
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-3 mb-4 mt-5">
+                <div class="card h-100">
+
+                    <img src="@item.ImageUrl"
+                         class="card-img-top"
+                         style="height:200px; object-fit:cover;">
+
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Name</h5>
+                        <h3 class="text-success text-size 5">£@item.Price</h3>
+
+                        <a asp-action="Details"
+                           asp-route-id="@item.ProductId"
+                           class="btn btn-primary btn-size 5">
+                            View Product
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+</div>
