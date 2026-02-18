@@ -1,4 +1,4 @@
-namespace Cart_King.Models;
+namespace Cart_King.Models.ViewModels;
 
 public class ErrorViewModel
 {

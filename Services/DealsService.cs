@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Cart_King.Models;
+using Cart_King.Models.ViewModels;
 using Cart_King.Connected_Services;
 using Microsoft.EntityFrameworkCore.Internal;
 using Cart_King.Controllers;

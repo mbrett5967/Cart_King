@@ -12,10 +12,8 @@ namespace Cart_King.Models
         [Required]
         [StringLength(50)]
         public string Name { get; set; } = string.Empty;
-
         public int DisplayOrder { get; set; }
 
-        // This links the category back to the list of products
-        public virtual ICollection<Product>? Products { get; set; }
+       
     }
 }

@@ -1,11 +1,12 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cart_King.Models
 {
-    public class SalesDeal
+    public class Deals
     {
-        
+        [Key]
         public int SalesDealId { get; set; } 
 
         // Relationship
@@ -25,5 +26,6 @@ namespace Cart_King.Models
 
         // Display control
         public int Priority { get; set; }
+        public virtual Deals? SalesDeal { get; set; }
     }
 }

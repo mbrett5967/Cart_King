@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Cart_King.Connected_Services;
 using Cart_King.Models;
+using Cart_King.Models.ViewModels;
 
 namespace Cart_King.Controllers
 {
@@ -16,7 +17,8 @@ namespace Cart_King.Controllers
         {
             _context = context;
         }
-
+        
+        //Search bar
         public async Task<IActionResult> Index(string searchString)
         {
             var products = _context.Products.Include(p => p.Category).AsQueryable();
@@ -29,16 +31,35 @@ namespace Cart_King.Controllers
             return View(await products.ToListAsync());
         }
 
+
+         // Gets details view of specific product via productID
         public async Task<IActionResult> Details(int id)
         {
             var product = await _context.Products
                 .Include(p => p.Category)
                 .FirstOrDefaultAsync(m => m.ProductId == id);
 
-            if (product == null) return NotFound();
-            return View(product);
+            if (product == null) 
+            {
+              
+              return NotFound();
+            }
+            
+            var ViewModel = new ProductDetailsViewModel
+            {
+               Name = product.Name,
+               Price = product.Price,
+               CategoryName = product.Category?.Name ?? "None",
+               ImageUrl = product.ImageUrl,             // Transferring the data
+               ShortDescription = product.ShortDescription, 
+               StockQuantity = product.StockQuantity
+            };
+          
+          return View(ViewModel);
         }
 
+
+        //shows all products using categoryID
         public async Task<IActionResult> ByCategory(int id)
         {
             var products = await _context.Products
@@ -48,7 +69,11 @@ namespace Cart_King.Controllers
             var category = await _context.Categories.FindAsync(id);
             ViewBag.CategoryName = category?.Name;
 
+            //Placeholder
             return View("Index", products);
         }
+
+      
+   
     }
 }
