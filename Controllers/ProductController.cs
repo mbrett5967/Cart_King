@@ -18,19 +18,7 @@ namespace Cart_King.Controllers
             _context = context;
         }
         
-        //Search bar
-        public async Task<IActionResult> Index(string searchString)
-        {
-            var products = _context.Products.Include(p => p.Category).AsQueryable();
-
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                products = products.Where(p => p.Name.Contains(searchString));
-            }
-
-            return View(await products.ToListAsync());
-        }
-
+   
 
          // Gets details view of specific product via productID
         public async Task<IActionResult> Details(int id)
@@ -57,6 +45,22 @@ namespace Cart_King.Controllers
           
           return View(ViewModel);
         }
+
+
+
+            // search bar
+              public async Task<IActionResult> Index(string searchString)
+        {
+            var products = _context.Products.Include(p => p.Category).AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                products = products.Where(p => p.Name.ToLower().Contains(searchString));
+            }
+
+            return View(await products.ToListAsync());
+        }
+
 
 
         //shows all products using categoryID
