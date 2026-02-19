@@ -17,11 +17,11 @@ namespace Cart_King.Models
      [Column(TypeName = "decimal(18,2)")] // Database storage logic
      public decimal Price { get; set; }
 
-     public string? ImageUrl { get; set; }
+     public string ImageUrl { get; set; } = string.Empty;
 
      public int StockQuantity { get; set; }
 
-     public string? ShortDescription { get; set; }
+     public string ShortDescription { get; set; } = string.Empty;
 
      // Relationship Logic
      public int CategoryId { get; set; } 
