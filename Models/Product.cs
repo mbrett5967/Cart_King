@@ -23,10 +23,11 @@ namespace Cart_King.Models
 
      public string ShortDescription { get; set; } = string.Empty;
 
+      [ForeignKey("CategoryId")]
      // Relationship Logic
      public int CategoryId { get; set; } 
     
-     [ForeignKey("CategoryId")]
+     
      public virtual Category? Category { get; set; }
     
     }
