@@ -54,8 +54,10 @@ namespace Cart_King.Controllers
             var products = _context.Products.Include(p => p.Category).AsQueryable();
 
             if (!string.IsNullOrEmpty(searchString))
-            {
-                products = products.Where(p => p.Name.ToLower().Contains(searchString));
+            {                                   
+                products = products.Where(p => p.Name.ToLower().Contains(searchString) // searches product name
+                                            || p.ShortDescription.ToLower().Contains (searchString) // allows description to be considered 
+                                            || p.Category !=null && p.Category.Name.ToLower().Contains (searchString)); // this fixes my dereference/reference null error
             }
 
             return View(await products.ToListAsync());
