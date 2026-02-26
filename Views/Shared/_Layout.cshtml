@@ -28,13 +28,30 @@
                       <div class="dropdown">
                          <button>Browse</button>
                            <div class="content">
-                             <a class= asp-controller="Product" , asp-action="Index">All Products</a>
-                             <a href="">Placeholder</a>
-                             <a href="">Placeholder2</a>
+                               <a class= "nav-link" asp-controller="Product" asp-action="Index">
+                                  <span style= "color:whitesmoke; text-transform:uppercase; font-size:large;">All Products</span>
+                               </a>
+                             <a class= asp-controller="Product" , asp-action="Index">Computer Accessories</a>
+                             <a class= asp-controller="Product" , asp-action="Index">Graphics Cards</a>
+                             <a class= asp-controller="Product" , asp-action="Index">CPU Processors</a>
+                             <a class= asp-controller="Product" , asp-action="Index">Custom Built PC's</a>
+                             <a class= asp-controller="Product" , asp-action="Index">VR Headsets</a>
+                             <a class= asp-controller="Product" , asp-action="Index">Games Consoles</a>
                             </div>
                       </div>  
-                      <a class="nav-link" asp-controller="Category" asp-action="Index">Sale</a>
-                      <a class="nav-link" asp-controller="Business" asp-action="Index">Procurement</a>
+                      <div class="dropdown">
+                         <button>Sale</button>
+                         <div class="content">
+                             <a class="nav-link" asp-controller="Category" asp-action="Index">Sale</a>
+                          </div>
+                     </div>
+                      <div class="dropdown">
+                         <button>Procurement</button>
+                          <div class="content">
+                             <a class="nav-link" asp-controller="Business" asp-action="Index">Procurement</a>
+                         </div>
+                      </div>
+                      
                  </div>
               </div>
 
