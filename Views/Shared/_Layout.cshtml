@@ -25,7 +25,14 @@
                       <a class="navbar-brand logo" href="/">
                           <img src="~/images/ckLogo.png" alt="Cart King" />
                         </a>
-                      <a class="nav-link" asp-controller="Product" asp-action="Index">Browse</a>
+                      <div class="dropdown">
+                         <button>Browse</button>
+                           <div class="content">
+                             <a class= asp-controller="Product" , asp-action="Index">All Products</a>
+                             <a href="">Placeholder</a>
+                             <a href="">Placeholder2</a>
+                            </div>
+                      </div>  
                       <a class="nav-link" asp-controller="Category" asp-action="Index">Sale</a>
                       <a class="nav-link" asp-controller="Business" asp-action="Index">Procurement</a>
                  </div>
