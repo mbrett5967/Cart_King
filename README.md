@@ -17,9 +17,10 @@
 
 > All, including README subject to change. This will be updated as I progress further during my learning.
 
-<img width="1909" height="857" alt="image" src="https://github.com/user-attachments/assets/dfde485c-309c-4b9c-8f47-fe0169ef0a0b" />
+<img width="1895" height="881" alt="image" src="https://github.com/user-attachments/assets/00146c7b-28f1-4f6a-94b3-946ffdbdb413" />
 <img width="1891" height="894" alt="image" src="https://github.com/user-attachments/assets/95621774-b7c7-49a8-bff4-490d75570407" />
-<img width="1871" height="960" alt="image" src="https://github.com/user-attachments/assets/2da45c50-13af-43e3-b539-bf46c1e8b0f4" />
+<img width="1904" height="956" alt="image" src="https://github.com/user-attachments/assets/bfff015f-83fb-4d49-b764-7717095e5f29" />
+
 
  
 
