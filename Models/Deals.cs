@@ -26,6 +26,6 @@ namespace Cart_King.Models
 
         // Display control
         public int Priority { get; set; }
-        public virtual Deals? SalesDeal { get; set; }
+       
     }
 }

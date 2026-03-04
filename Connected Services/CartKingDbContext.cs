@@ -1,11 +1,13 @@
 using System;
 using Microsoft.EntityFrameworkCore; 
 using Cart_King.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 
 namespace Cart_King.Connected_Services
 {
-    public class CartKingDbContext : DbContext
+    public class CartKingDbContext : IdentityDbContext<IdentityUser>
     {
         public CartKingDbContext(DbContextOptions<CartKingDbContext> options)
             : base(options) { }
@@ -18,6 +20,8 @@ namespace Cart_King.Connected_Services
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Category>().HasData(
                 new Category { CategoryId = 1, Name = "Computer Accessories", DisplayOrder = 1 },
                 new Category { CategoryId = 2, Name = "Graphics Cards", DisplayOrder = 2 },
