@@ -2,6 +2,11 @@ using Cart_King.Connected_Services;
 using Cart_King.Services;
 using Microsoft.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Builder;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +18,14 @@ builder.Services.AddDbContext<CartKingDbContext>(options =>
 // ... rest of your services
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<DealsService>();
+builder.Services.AddRazorPages();
 
+// 3. Register Identity
+builder.Services.AddDefaultIdentity<IdentityUser>(options => {
+    options.SignIn.RequireConfirmedAccount = false;
+    options.Password.RequireNonAlphanumeric = false; // Optional: Adjust complexity
+})
+.AddEntityFrameworkStores<CartKingDbContext>();
 
 var app = builder.Build();
 
@@ -29,6 +41,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
@@ -38,5 +51,6 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
+app.MapRazorPages();
 
 app.Run();
