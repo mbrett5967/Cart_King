@@ -65,13 +65,7 @@ Tech Stack
 * pgAdmin 4
 * Npgsql EF Core Provider
 
-High-Level Architecture
-* ASP.NET Core handles HTTP requests and routing
-* EF Core acts as the ORM (Object-Relational Mapper)
-* PostgreSQL stores application data
-* Dependency Injection manages object lifetimes
-* Migrations manage schema evolution
-* Building a Scalable Razor View Architecture using Bootstrap classes
+
 
 
 
