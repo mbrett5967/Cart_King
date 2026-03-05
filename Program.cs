@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Builder;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add DbContext with PostgreSQL
