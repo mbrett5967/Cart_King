@@ -212,7 +212,12 @@ body {
 /* Dropdown elements hover state*/
 .nav-left .dropdown a:hover {
     color: var(--hover-text) !important;
-    background-color:hsla(234, 50%, 8%, 0.635);
+    background-color:hsla(222, 33%, 10%, 0.957)!important;
+    padding: 5px 10px;
+    border-radius: 20px 20px 20px 20px;
+    position:unset;
+    
+   
 }
 
 /* left nav hover state */
