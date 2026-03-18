@@ -110,7 +110,7 @@ html {
  display: block;
  color: var(--nav-text) !important;
  text-decoration: none;
- padding: 10px 15px;
+ padding: 10px 30px;
  text-transform:capitalize;
 
 
@@ -191,6 +191,13 @@ body {
     font-weight: bold;
 }
 
+.login_container {
+ flex-direction: row;
+ justify-content:center;
+ margin: auto;
+ margin-top: 50px; 
+ display:flex
+}
 
 /* Headings to make it distinct from body text */
 
@@ -212,10 +219,9 @@ body {
 /* Dropdown elements hover state*/
 .nav-left .dropdown a:hover {
     color: var(--hover-text) !important;
-    background-color:hsla(222, 33%, 10%, 0.957)!important;
-    padding: 5px 10px;
+    background-color:hsla(221, 12%, 36%, 0.957)!important;
+    padding: 5px 30px;
     border-radius: 20px 20px 20px 20px;
-    position:unset;
     
    
 }
