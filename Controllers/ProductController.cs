@@ -33,6 +33,7 @@ namespace Cart_King.Controllers
               return NotFound();
             }
             
+            // sends data to viewmodel
             var ViewModel = new ProductDetailsViewModel
             {
                Name = product.Name,
@@ -63,8 +64,6 @@ namespace Cart_King.Controllers
             return View(await products.ToListAsync());
         }
 
-
-
         //shows all products using categoryID
         public async Task<IActionResult> ByCategory(int id)
         {
@@ -75,7 +74,7 @@ namespace Cart_King.Controllers
             var category = await _context.Categories.FindAsync(id);
             ViewBag.CategoryName = category?.Name;
 
-            //Placeholder
+            
             return View("Index", products);
         }
 
