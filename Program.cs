@@ -21,6 +21,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<DealsService>();
 builder.Services.AddRazorPages();
 
+// Configure 
+builder.Services.AddTransient<IEmailSender, EmailSender>();
+
 // 3. Register Identity
 builder.Services.AddDefaultIdentity<IdentityUser>(options => {
     options.SignIn.RequireConfirmedAccount = false;
