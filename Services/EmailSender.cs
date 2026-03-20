@@ -16,7 +16,7 @@ namespace Cart_King.Services
 
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
-            var smtpSettings = _configuration.GetSection("SMTP2GO");
+            var smtpSettings = _configuration.GetSection("Mailtrap");
 
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("Cart King", smtpSettings["FromEmail"] ?? "noreply@yourdomain.com"));
@@ -31,7 +31,7 @@ namespace Cart_King.Services
 
             using var client = new SmtpClient();
             await client.ConnectAsync(
-                smtpSettings["Host"] ?? "mail.smtp2go.com",
+                smtpSettings["Host"] ?? "sandbox.smtp.mailtrap.io",
                 int.Parse(smtpSettings["Port"] ?? "587"),
                 SecureSocketOptions.StartTls);
 
