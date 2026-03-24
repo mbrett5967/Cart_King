@@ -16,17 +16,19 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<CartKingDbContext>(options =>
     options.UseNpgsql(connectionString));
 
-// ... rest of your services
+// Services
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<DealsService>();
+builder.Services.AddTransient<IEmailSender, EmailService>();
 builder.Services.AddRazorPages();
 
+
 // Configure 
-builder.Services.AddTransient<IEmailSender, EmailSender>();
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 
 // 3. Register Identity
 builder.Services.AddDefaultIdentity<IdentityUser>(options => {
-    options.SignIn.RequireConfirmedAccount = false;
+    options.SignIn.RequireConfirmedAccount = true;
     options.Password.RequireNonAlphanumeric = false; // Optional: Adjust complexity
 })
 .AddEntityFrameworkStores<CartKingDbContext>();
