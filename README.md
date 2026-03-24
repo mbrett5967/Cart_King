@@ -16,6 +16,7 @@
 <img src="https://img.shields.io/badge/WIP-8A2BE2" alt="WIP"/>
 
 > All, including README subject to change. This will be updated as I progress further during my learning.
+> Recently completed (24/03/2026): Successfully setup Email servicing using MailTrap Sandbox. Now have functional email sending for authentication and registration.
 
 <img width="1895" height="881" alt="image" src="https://github.com/user-attachments/assets/00146c7b-28f1-4f6a-94b3-946ffdbdb413" />
 <img width="1891" height="894" alt="image" src="https://github.com/user-attachments/assets/95621774-b7c7-49a8-bff4-490d75570407" />
