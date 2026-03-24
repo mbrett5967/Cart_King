@@ -29,7 +29,7 @@ namespace Cart_King.Services
 
 
             // Connecting using StartTls (Port 2525)
-            await client.ConnectAsync(_settings.Host, _settings.Port, SecureSocketOptions.StartTls);
+            await client.ConnectAsync(_settings.Host, _settings.Port, SecureSocketOptions.StartTls); // This fixes my mac related handshake issues 
             await client.AuthenticateAsync(_settings.Username, _settings.Password);
             await client.SendAsync(message);
             await client.DisconnectAsync(true);
