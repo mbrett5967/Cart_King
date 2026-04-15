@@ -15,10 +15,17 @@
 ---
 <img src="https://img.shields.io/badge/WIP-8A2BE2" alt="WIP"/>
 
-> All, including README subject to change. This will be updated as I progress further during my learning.
-> Recently completed (24/03/2026): Successfully setup Email servicing using MailTrap Sandbox. Now have functional email sending for authentication and registration.
+<h3>All, including README subject to change</h3>
+
+
+>(24/03/2026): Successfully setup Email servicing using MailTrap Sandbox. Now have functional email sending for authentication and registration.
+> 
+> (15/04/2026) : Added Identity user forms for profile dashboard, currently researching how to return a saved delivery address
+
 
 <img width="1895" height="881" alt="image" src="https://github.com/user-attachments/assets/00146c7b-28f1-4f6a-94b3-946ffdbdb413" />
+<img width="1898" height="664" alt="image" src="https://github.com/user-attachments/assets/11861606-2a7f-4b00-9dbc-d14f94986b7c" />
+<img width="1381" height="662" alt="image" src="https://github.com/user-attachments/assets/5a97f33a-2949-4773-aa7c-aa48debd2aa9" />
 <img width="1891" height="894" alt="image" src="https://github.com/user-attachments/assets/95621774-b7c7-49a8-bff4-490d75570407" />
 <img width="1904" height="956" alt="image" src="https://github.com/user-attachments/assets/bfff015f-83fb-4d49-b764-7717095e5f29" />
 
