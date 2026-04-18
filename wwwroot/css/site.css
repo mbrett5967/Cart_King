@@ -24,12 +24,19 @@ html {
   --custom-font-body:'Anton',sans-serif;
 }
 
+/* Plcaeholder font for search button */
+::-webkit-input-placeholder {
+   font-size: 14px!important;
+}
+
+
 /* default nav */
 .custom-nav {
     background-color: transparent!important;
     padding: 0 !important;
     text-transform: uppercase;
 }
+
 
 /* default link design */
 .nav-link {
@@ -122,13 +129,12 @@ html {
     position: absolute;
     top: 65%;
     border-radius: 10px 10px 10px 10px;
-    box-shadow: 2px 2px 5px whitesmoke;
+    box-shadow: 1px 0px 2px whitesmoke;
     display: none;
     z-index: 100;
     left: 0;
 
 }
-
 
 /* For global page color and styles */
 body {
