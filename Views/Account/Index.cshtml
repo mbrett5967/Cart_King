@@ -8,7 +8,7 @@
 <div class="row mt-5">
   <div class="col-4">
         <div class="list-group" id="list-tab" role="tablist">
-            <a class="list-group-item list-group-item-action @(currentTab == "welcome" ? "active" : "")" id="list-home-list" data-bs-toggle="list" href="#list-home" style="text-indent:20px;" role="tab" aria-controls="list-home">Welcome</a>
+            <a class="list-group-item list-group-item-action @(currentTab == "welcome" ? "active" : "")" id="list-home-list" data-bs-toggle="list" href="#list-home" style="text-indent:20px;" role="tab" aria-controls="list-home"><p>Welcome @Model.FirstName</p></a>
             <a class="list-group-item list-group-item-action" id="list-orders-list" data-bs-toggle="list" href="#list-orders" style="text-align:center;"role="tab" aria-controls="list-orders">Orders and Returns</a>
             <a class="list-group-item list-group-item-action" id="list-card-address-list" data-bs-toggle="list" href="#list-card-address" style="text-align:center;"role="tab" aria-controls="list-card-address">Cardholder Address</a>
             <a class="list-group-item list-group-item-action @(currentTab == "delivery" ? "active" : "")" id="list-delivery-address-list" data-bs-toggle="list" href="#list-delivery-address" style="text-align:center;" role="tab" aria-controls="list-delivery-address">Delivery Address</a>
@@ -25,7 +25,7 @@
 
   <div class="col-8">
         <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show  @(currentTab == "welcome" ? "show active" : "")" id="list-home" role="tabpanel" aria-labelledby="list-home-list">Welcome</div>
+        <div class="tab-pane fade show  @(currentTab == "welcome" ? "show active" : "")" id="list-home" role="tabpanel" aria-labelledby="list-home-list"></div>
         <div class="tab-pane fade" id="list-orders" role="tabpanel" aria-labelledby="list-orders-list">...</div>
         <div class="tab-pane fade" id="list-card-address" role="tabpanel" aria-labelledby="list-card-address-list">...</div>
         <div class="tab-pane fade @(currentTab == "delivery" ? "show active" : "")" id="list-delivery-address" role="tabpanel" aria-labelledby="list-delivery-address-list">
