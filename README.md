@@ -24,7 +24,19 @@
 
 
 <img width="1475" height="764" alt="image" src="https://github.com/user-attachments/assets/af997f21-b43a-4f48-9ff7-0ea94264b6b5" />
+<h2>My Delivery Address Partial</h2>
+
+* Uses professional ViewModel flow, recieved data updates main model etc
+* Calls data from model for "Welcome @Model.FirstName" greeting, in dashboard header
+* Saves the form data and returns saved state
+* TempData used to notify of success or error of saved data
+  
 <img width="1904" height="806" alt="image" src="https://github.com/user-attachments/assets/aed28348-016b-4e32-8065-411c7abbcf18" />
+<h2>Working Email services for Authentication</h2>
+
+* Initial implementation using Mailtrap SMTP Sandbox
+* Using Default IdentityUser for password resets and account registration
+
 <img width="1381" height="662" alt="image" src="https://github.com/user-attachments/assets/5a97f33a-2949-4773-aa7c-aa48debd2aa9" />
 <img width="1891" height="894" alt="image" src="https://github.com/user-attachments/assets/95621774-b7c7-49a8-bff4-490d75570407" />
 <img width="1904" height="956" alt="image" src="https://github.com/user-attachments/assets/bfff015f-83fb-4d49-b764-7717095e5f29" />
