@@ -286,6 +286,9 @@ namespace Cart_King.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("text");
 
+                    b.Property<string>("MobileNumber")
+                        .HasColumnType("text");
+
                     b.Property<string>("Postcode")
                         .HasColumnType("text");
 
