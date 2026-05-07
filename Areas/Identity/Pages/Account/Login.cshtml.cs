@@ -115,7 +115,7 @@ namespace Cart_King.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return RedirectToAction("OpenDashboard","Account");
+                    return RedirectToAction("Index","Account");
                 }
                 if (result.RequiresTwoFactor)
                 {
