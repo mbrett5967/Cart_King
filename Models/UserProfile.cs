@@ -26,5 +26,7 @@ namespace Cart_King.Models
     public string? AddressLine1 { get; set; }
     public string? City { get; set; }
     public string? Postcode { get; set; }
+    public string? MobileNumber { get; set; }
+
     }
 }
