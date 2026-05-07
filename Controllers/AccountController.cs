@@ -25,109 +25,124 @@ namespace Cart_King.Controllers
             _userManager = userManager;
         }
 
-        // The ViewModel to be used by other actions
-        private async Task<DeliveryAddressViewModel?> BuildDeliveryViewModel()
+        // --- Dashboard Logic ---
+
+        public async Task<IActionResult> Index(string? activeTab = null)
         {
+            // ID check for security - looks in my db 
             var userId = _userManager.GetUserId(User);
+            if (userId == null) return Unauthorized();
 
-            if (userId == null)
-                return null;
-
-            // Look for an existing profile in the database
+            // Fetch data from both sources
+            var user = await _userManager.FindByIdAsync(userId);
             var profile = await _context.UserProfiles.FirstOrDefaultAsync(p => p.IdentityUserId == userId);
 
-
-            // Builds the ViewModel 
-            return new DeliveryAddressViewModel
+            var model = new DashboardViewModel
             {
-                IdentityUserId = userId, 
-                FirstName = profile?.FirstName,
-                LastName = profile?.LastName,
-                AddressLine1 = profile?.AddressLine1,
-                City = profile?.City,
-                Postcode = profile?.Postcode
+                ActiveTab = activeTab ?? "delivery",
+                DeliveryAddress = new DeliveryAddressViewModel
+                {
+                    IdentityUserId = userId,
+                    FirstName = profile?.FirstName,
+                    LastName = profile?.LastName,
+                    AddressLine1 = profile?.AddressLine1,
+                    City = profile?.City,
+                    Postcode = profile?.Postcode
+                },
+                ContactDetails = new ContactDetailsViewModel
+                {
+                    IdentityUserId = userId,
+                    Email = user?.Email,
+                    PhoneNumber = user?.PhoneNumber,
+                    MobileNumber = profile?.MobileNumber
+                }
             };
+
+            return View(model);
         }
 
+        // --- Delivery Address Actions ---
 
-        // Opens the profile Index view
-        public async Task<IActionResult> OpenDashboard(string? activeTab = null)
-        {
-            ViewBag.ActiveTab = activeTab;
-
-            var userId = _userManager.GetUserId(User);
-
-            var profile = await _context.UserProfiles.FirstOrDefaultAsync(p => p.IdentityUserId == userId);
-
-            if (userId == null)
-                return Unauthorized();
-
-            var model = await BuildDeliveryViewModel();
-
-            if (model == null)
-                return Unauthorized();
-
-
-            return View("Index", model);
-        }
-
-
-        // Get delivery address 
-        public async Task<IActionResult> GetDeliveryAddress()
-        {
-            var model = await BuildDeliveryViewModel();
-
-            if (model == null)
-                return Unauthorized();
-
-            return PartialView("_GetDeliveryAddressPartial", model);
-        }
-
-        // Receives the data from the user and saves it
         [HttpPost]
         public async Task<IActionResult> SaveDeliveryAddress(DeliveryAddressViewModel model)
         {
+            if (!ModelState.IsValid) return RedirectToAction("Index", new { activeTab = "delivery" });
 
-            if (!ModelState.IsValid) return RedirectToAction("OpenDashboard");
+            // ID check from DB - best for security 
+            var userId = _userManager.GetUserId(User);
+            if (userId == null) return Unauthorized();
 
-            // Check if they already have a profile row
-            var profile = _context.UserProfiles.FirstOrDefault(p => p.IdentityUserId == model.IdentityUserId);
+            // Looks for profile data in db
+            var profile = await _context.UserProfiles.FirstOrDefaultAsync(p => p.IdentityUserId == model.IdentityUserId);
 
             if (profile == null)
             {
-                // If NO profile exists, create a brand new one
                 profile = new UserProfile { IdentityUserId = model.IdentityUserId };
                 _context.UserProfiles.Add(profile);
             }
 
-            // Copy the data from the "Envelope" (ViewModel) into the "Filing Cabinet" (Model)
             profile.FirstName = model.FirstName;
             profile.LastName = model.LastName;
             profile.AddressLine1 = model.AddressLine1;
             profile.City = model.City;
             profile.Postcode = model.Postcode;
 
-            // if data present in rows, display success message
-            int dataInRows = await _context.SaveChangesAsync();
+           // save button display message 
+           int DeliveryDataInRows = await _context.SaveChangesAsync();
 
-            if (dataInRows > 0)
+           if (DeliveryDataInRows > 0)
             {
-                TempData["SuccessMessage"] = "Saved Successfully!";
+                TempData["DeliverySuccess"] = "Delivery address saved!";
             }
-            else TempData["ErrorMessage"] = "Oops, something went";
-
-            return RedirectToAction("OpenDashboard", new { activeTab = "delivery" });
+          else TempData["DeliveryError"] = "Oops, something went"; 
+            
+            return RedirectToAction("Index", new { activeTab = "delivery" });
         }
 
+        // --- Contact Details Actions ---
 
-        //Get contact details action
+        [HttpPost]
+        public async Task<IActionResult> SaveContactDetails(ContactDetailsViewModel model)
+        {
+            if (!ModelState.IsValid) return RedirectToAction("Index", new { activeTab = "contact" });
+            
 
-        //Get card info
+            var userId = _userManager.GetUserId(User);
+            if (userId == null) return Unauthorized();
 
-        //Get wishlist?
+            // Update Identity table Data in db
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user != null)
+            {
+                user.Email = model.Email;
+                user.UserName = model.Email; // Keep sync
+                user.PhoneNumber = model.PhoneNumber;
+                await _userManager.UpdateAsync(user);
+            }
 
+            // Update Profile Data table in Db 
+            var profile = await _context.UserProfiles.FirstOrDefaultAsync(p => p.IdentityUserId == userId);
+            if (profile == null)
+            {
+                profile = new UserProfile { IdentityUserId = userId };
+                _context.UserProfiles.Add(profile);
+            }
 
-        // Signout Button
+            profile.MobileNumber = model.MobileNumber;
+           int ContactDataInRows =  await _context.SaveChangesAsync();
+
+            if (ContactDataInRows > 0)
+            {
+               TempData["ContactSuccess"] = "Contact details updated!"; 
+            }
+            
+           else TempData["ContactError"] = "Error, please try again"; 
+            
+            return RedirectToAction("Index", new { activeTab = "contact" });
+        }
+
+        // --- Authentication ---
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
