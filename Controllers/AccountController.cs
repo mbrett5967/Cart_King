@@ -9,9 +9,10 @@ using Microsoft.AspNetCore.Identity;
 using Cart_King.Connected_Services;
 using Cart_King.Models;
 using Cart_King.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Cart_King.Controllers
-{
+{   [Authorize]
     public class AccountController : Controller
     {
         private readonly SignInManager<IdentityUser> _signInManager;
@@ -26,7 +27,7 @@ namespace Cart_King.Controllers
         }
 
         // --- Dashboard Logic ---
-
+        
         public async Task<IActionResult> Index(string? activeTab = null)
         {
             // ID check for security - looks in my db 
@@ -62,7 +63,7 @@ namespace Cart_King.Controllers
         }
 
         // --- Delivery Address Actions ---
-
+        
         [HttpPost]
         public async Task<IActionResult> SaveDeliveryAddress(DeliveryAddressViewModel model)
         {
@@ -100,7 +101,7 @@ namespace Cart_King.Controllers
         }
 
         // --- Contact Details Actions ---
-
+        
         [HttpPost]
         public async Task<IActionResult> SaveContactDetails(ContactDetailsViewModel model)
         {
