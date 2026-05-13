@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cart_King.Models
@@ -10,7 +11,9 @@ namespace Cart_King.Models
         public int SalesDealId { get; set; } 
 
         // Relationship
+        [Required]
         public int ProductId { get; set; }
+        [ForeignKey ("ProductId")]
         public Product Product { get; set; } = null!;
 
         // Pricing
