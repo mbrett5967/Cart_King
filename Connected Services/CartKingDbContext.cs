@@ -18,6 +18,7 @@ namespace Cart_King.Connected_Services
         public DbSet<OrderItem> OrderItems { get; set; } = null!;
         public DbSet<Deals> SalesDeals { get; set; } = null!;
         public DbSet<UserProfile> UserProfiles { get; set; } = null!;
+        public DbSet<WishlistItem> WishlistItems { get; set; } = null!;
        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
