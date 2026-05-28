@@ -1,6 +1,7 @@
 ﻿@using Cart_King.Controllers
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,100 +11,117 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Cart_King.styles.css" asp-append-version="true" />
 </head>
+
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm custom-nav" style = "background-color: var(--nav-background), color: var(--nav-text);">
+        <nav class="navbar navbar-expand-sm custom-nav"
+             style="background-color: var(--nav-background), color: var(--nav-text);">
             <div class="container-fluid p-0">
-                
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-               <div class="nav-left">
-                  <div class="navbar-nav">
-                      <a class="navbar-brand logo" href="/">
-                          <img src="~/images/ckLogo.png" alt="Cart King" />
+                <div class="nav-left">
+                    <div class="navbar-nav">
+                        <a class="navbar-brand logo" href="/">
+                            <img src="~/images/ckLogo.png" alt="Cart King" />
                         </a>
-                      <div class="dropdown">
-                         <button>Browse</button>
-                           <div class="content">
-                               <a class= "nav-link" asp-controller="Product" asp-action="Index">
-                                  <span style= "color:whitesmoke; text-transform:uppercase; font-size:large;">All Products</span>
-                               </a>
-                             <a class= "nav-link" asp-controller="Product" asp-action="ByCategory" asp-route-id="1">Computer Accessories</a>
-                             <a class= "nav-link" asp-controller="Product" asp-action="ByCategory" asp-route-id="2">Graphics Cards</a>
-                             <a class= "nav-link" asp-controller="Product" asp-action="ByCategory" asp-route-id="3">CPU Processors</a>
-                             <a class= "nav-link" asp-controller="Product" asp-action="ByCategory" asp-route-id="4">Custom Built PC's</a>
-                             <a class= "nav-link" asp-controller="Product" asp-action="ByCategory" asp-route-id="5">VR Headsets</a>
-                             <a class= "nav-link" asp-controller="Product" asp-action="ByCategory" asp-route-id="6">Games Consoles</a>
-                            </div>
-                      </div>  
-                      <div class="dropdown">
-                         <button>Sale</button>
-                         <div class="content">
-                             <a class="nav-link" asp-controller="Category" asp-action="Index">Sale</a>
-                          </div>
-                     </div>
-                      <div class="dropdown">
-                         <button>Procurement</button>
-                          <div class="content">
-                             <a class="nav-link" asp-controller="Business" asp-action="Index">Procurement</a>
-                         </div>
-                      </div>
-                      
-                 </div>
-              </div>
+                        <div class="dropdown">
+                            <button>Browse</button>
+                            <div class="content">
+                                <a class="nav-link" asp-controller="Product" asp-action="Index">
+                                    <span style="color:whitesmoke; text-transform:uppercase; font-size:large;">All
+                                        Products</span>
+                                    </a>
+                                    <a class="nav-link" asp-controller="Product" asp-action="ByCategory"
+                                       asp-route-id="1">Computer Accessories</a>
+                                    <a class="nav-link" asp-controller="Product" asp-action="ByCategory"
+                                       asp-route-id="2">Graphics Cards</a>
+                                    <a class="nav-link" asp-controller="Product" asp-action="ByCategory"
+                                       asp-route-id="3">CPU Processors</a>
+                                    <a class="nav-link" asp-controller="Product" asp-action="ByCategory"
+                                       asp-route-id="4">Custom Built PC's</a>
+                                    <a class="nav-link" asp-controller="Product" asp-action="ByCategory" asp-route-id="5">VR
+                                        Headsets</a>
+                                        <a class="nav-link" asp-controller="Product" asp-action="ByCategory"
+                                           asp-route-id="6">Games Consoles</a>
+                                    </div>
+                                </div>
+                                <div class="dropdown">
+                                    <button>Sale</button>
+                                    <div class="content">
+                                        <a class="nav-link" asp-controller="Category" asp-action="Index">Sale</a>
+                                    </div>
+                                </div>
+                                <div class="dropdown">
+                                    <button>Procurement</button>
+                                    <div class="content">
+                                        <a class="nav-link" asp-controller="Business" asp-action="Index">Procurement</a>
+                                    </div>
+                                </div>
 
-            <div class="container">
-                <div class="row">
-                    <div class="container-fluid">
-                        <div class="row justify-content-center">
-                            <div class="col-12 col-md-6">
-                               <form class="d-flex" asp-controller="Product" asp-action="Index" method="get">
-                                 <input name="searchString"
-                                 class="form-control me-2"
-                                  type="search"
-                                   placeholder="Search our latest products.."
-                                   aria-label="Search">
-                                 <button class="btn btn-dark text-nowrap" type="submit">Search</button>
-                                </form>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-                
-                <div class="nav-right">
-                  <div class="navbar-nav">
-                     <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Account</a>
-                     <a class="nav-link" asp-controller="Home" asp-action="Index">Basket
-                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-basket" viewBox="0 0 18 18">
-                             <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1v4.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 13.5V9a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1.217L5.07 1.243a.5.5 0 0 1 .686-.172zM2 9v4.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V9zM1 7v1h14V7zm3 3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 4 10m2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 6 10m2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 8 10m2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5m2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5"/>
-                         </svg>
 
-                        </a>
-                 </div>
-              </div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="container-fluid">
+                                    <div class="row justify-content-center">
+                                        <div class="col-12 col-md-6">
+                                            <form class="d-flex" asp-controller="Product" asp-action="Index" method="get">
+                                                <input name="searchString" class="form-control me-2" type="search"
+                                                       placeholder="Search our latest products.." aria-label="Search">
+                                                <button class="btn btn-dark text-nowrap" type="submit">Search</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="nav-right">
+                            
+                            <div class="navbar-nav d-flex flex-row align-items-center gap-3">
+
+                               
+
+                                @using Microsoft.AspNetCore.Identity
+                                @inject SignInManager<IdentityUser> SignInManager
+                                    <a class="nav-link" asp-controller="Account" asp-action="Index">Account</a>
+                                    <a class="nav-link d-flex align-items-center gap-1" asp-controller="Home" asp-action="Index">
+                                    
+            <span>Basket</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-basket" viewBox="0 0 18 18">
+                <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1v4.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 13.5V9a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1.217L5.07 1.243a.5.5 0 0 1 .686-.172zM2 9v4.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V9zM1 7v1h14V7zm3 3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 4 10m2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 6 10m2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 8 10m2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5m2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5" />
+            </svg>
+        </a>
+    </div>
+</div>
+
+
               
-    </div>
-</nav>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
+                    </div>
+                </nav>
+            </nav>
+        </header>
         <div class="container">
-            &copy; 2025 - Cart King - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
-</body>
+
+        <footer class="border-top footer text-muted">
+            <div class="container">
+                &copy; 2025 - Cart King - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </footer>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        @await RenderSectionAsync("Scripts", required: false)
+    </body>
+
 </html>
