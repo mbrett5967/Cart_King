@@ -10,17 +10,18 @@
 
     <div class="row">
         <div class="col-md-6 text-center">
-            <img src="@Model.ImageUrl?" class="img-fluid rounded shadow-sm" alt="@Model.Name" style="max-height: 500px;">
+            <img src="@Model.ImageUrl?" class="img-fluid rounded shadow-sm" alt="@Model.Name"
+                 style="max-height: 500px;">
         </div>
 
         <div class="col-md-6">
             <h1 class="display-5 fw-bold">@Model.Name</h1>
             <p class="text-muted">Brand: Cart King Hardware</p>
-            
+
             <hr />
-            
+
             <h3 class="text-success">£@Model.Price</h3>
-            
+
             <div class="my-4">
                 <h5>About this item:</h5>
                 <p>@Model.ShortDescription</p>
@@ -31,9 +32,36 @@
                 <p class="@(Model.StockQuantity > 0 ? "text-success" : "text-danger")">
                     @(Model.StockQuantity > 0 ? $"In Stock ({Model.StockQuantity} available)" : "Out of Stock")
                 </p>
-                
+
                 <button class="btn btn-warning btn-lg w-100 rounded-pill mb-2">Add to Basket</button>
                 <button class="btn btn-orange btn-lg w-100 rounded-pill" style="background-color: #ffa41c;">Buy Now</button>
+                
+                <!-- WISHLIST FORM -->
+                <form asp-controller="Wishlist" 
+                    asp-action="AddToWishlist" 
+                    asp-route-returnUrl="@Context.Request.Path@Context.Request.QueryString"
+                    method="post" class="mt-2">
+                    <!-- Grab the Product ID from the URL Route -->
+                    <input type="hidden" name="productId" value="@ViewContext.RouteData.Values["id"]" />
+                
+
+                    <!-- Checked against the same Route ID so TempData evaluates correctly -->
+                    @if (TempData[$"IsInWishlist_{ViewContext.RouteData.Values["id"]}"] != null && (bool?)TempData[$"IsInWishlist_{ViewContext.RouteData.Values["id"]}"] == true)
+                    {
+                        <!--Item is saved [placeholder]-->
+                        <button type="submit" class="btn btn-success w-100 rounded-pill" disabled>
+                            ✔️ Saved to Wishlist
+                        </button>
+                    }
+                    else
+                    {
+                        <!--Item is not saved [placeholder] -->
+                        <button type="submit" class="btn btn-outline-secondary w-100 rounded-pill">
+                            ❤️ Add to Wishlist
+                        </button>
+                    }
+                </form>
+
             </div>
         </div>
     </div>
