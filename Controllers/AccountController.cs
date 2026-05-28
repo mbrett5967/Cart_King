@@ -11,6 +11,7 @@ using Cart_King.Models;
 using Cart_King.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 
+
 namespace Cart_King.Controllers
 {   [Authorize]
     public class AccountController : Controller
@@ -28,7 +29,7 @@ namespace Cart_King.Controllers
 
         // --- Dashboard Logic ---
         
-        public async Task<IActionResult> Index(string? activeTab = null)
+        public async Task<IActionResult> Index(string? activeTab = "welcome")
         {
             // ID check for security - looks in my db 
             var userId = _userManager.GetUserId(User);
@@ -50,8 +51,9 @@ namespace Cart_King.Controllers
                     City = profile?.City,
                     Postcode = profile?.Postcode
                 },
+                
                 ContactDetails = new ContactDetailsViewModel
-                {
+                {   
                     IdentityUserId = userId,
                     Email = user?.Email,
                     PhoneNumber = user?.PhoneNumber,
@@ -118,7 +120,13 @@ namespace Cart_King.Controllers
                 user.Email = model.Email;
                 user.UserName = model.Email; // Keep sync
                 user.PhoneNumber = model.PhoneNumber;
-                await _userManager.UpdateAsync(user);
+                
+                var result = await _userManager.UpdateAsync(user);
+                if (result.Succeeded)
+                {
+                    // Refreshes sign in cookie so the user isn't logged out
+                    await _signInManager.RefreshSignInAsync(user);
+                }
             }
 
             // Update Profile Data table in Db 
@@ -141,6 +149,14 @@ namespace Cart_King.Controllers
             
             return RedirectToAction("Index", new { activeTab = "contact" });
         }
+        
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ForgotPassword()
+        {
+            return View("_ForgotPasswordPartial");
+        }
+
 
         // --- Authentication ---
 
