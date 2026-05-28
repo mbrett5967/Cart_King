@@ -14,10 +14,8 @@
         <div class="list-group" id="list-tab" role="tablist">
            
             <a class="list-group-item list-group-item-action @(currentTab == "welcome" ? "active" : "")"
-               id="list-home-list" data-bs-toggle="list" href="#list-home" style="text-indent:20px;" role="tab"
-               aria-controls="list-home">
-                <p class="mb-0">Welcome @Model.DeliveryAddress.FirstName</p>
-            </a>
+               id="list-home-list" data-bs-toggle="list" href="#list-home" style="text-align:center;" role="tab"
+               aria-controls="list-home">Welcome</a>
 
             <a class="list-group-item list-group-item-action" id="list-orders-list" data-bs-toggle="list"
                href="#list-orders" style="text-align:center;" role="tab" aria-controls="list-orders">Orders and
@@ -34,9 +32,9 @@
                id="list-contact-list" data-bs-toggle="list" href="#list-contact" style="text-align:center;" role="tab"
                aria-controls="list-contact">Contact Details</a>
 
-            <a class="list-group-item list-group-item-action @(currentTab == "password" ? "active" : "")"
-               id="list-update-password-list" data-bs-toggle="list" href="#list-update-password"
-               style="text-align:center;" role="tab" aria-controls="list-update-password">Update Password</a>
+                        <a class="list-group-item list-group-item-action text-center" asp-area="Identity" asp-page="/Account/Manage/Index" role="button">
+                                Profile Settings
+                        </a>
             <a class="list-group-item list-group-item-action" id="list-wish-list" data-bs-toggle="list"
                href="#list-wish" style="text-align:center;" role="tab" aria-controls="list-wish">My Wishlist</a>
 
@@ -62,20 +60,13 @@
                     @if (SignInManager.IsSignedIn(User))
                     {
                         <div class="border-top pt-3 mt-2">
-                            <h6 class="text-uppercase text-secondary font-weight-bold"
-                                style="font-size: 0.8rem; letter-spacing: 1px;">Security Configuration Context</h6>
+                            
 
                             <!-- Display active logged-in user credential name -->
-                            <p class="mb-3">Logged in as: <strong class="text-primary">@UserManager.GetUserName(User)</strong></p>
 
                             <div class="d-flex flex-column flex-sm-row gap-2">
-                                <a class="btn btn-outline-primary btn-sm" asp-area="Identity" asp-page="/Account/Manage/Index">
-                                    Advanced Security Profile Settings
-                                </a>
-
-                                <form id="logoutForm" asp-controller="Account" asp-action="Logout" method="post" class="m-0">
-                                    <button id="logout" type="submit" class="btn btn-danger btn-sm">Log Out Securely</button>
-                                </form>
+                               <p class="mb-0">Welcome @Model.DeliveryAddress.FirstName !</p>
+                               <p class="mt-5">{Placeholder - will show past 5 orders}</p>
                             </div>
                         </div>
                     }
@@ -127,13 +118,6 @@
                         @TempData["ContactError"]
                     </div>
                 }
-            </div>
-
-            <div class="tab-pane fade @(currentTab == "password" ? "show active" : "")" id="list-update-password"
-                 role="tabpanel" aria-labelledby="list-update-password-list">
-                <h4>Security Settings</h4>
-                <p>To update or reset your password, please use our secure account management portal.</p>
-                <a class="btn btn-primary" asp-controller="Account" asp-action="ForgotPassword" role="button">Reset Password</a>
             </div>
 
             <div class="tab-pane fade" id="list-wish" role="tabpanel" aria-labelledby="list-wish-list">...</div>
