@@ -19,12 +19,14 @@ namespace Cart_King.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly CartKingDbContext _context;
+        private readonly ILogger<AccountController> _logger;
 
-        public AccountController(SignInManager<IdentityUser> signInManager, CartKingDbContext context, UserManager<IdentityUser> userManager)
+        public AccountController(SignInManager<IdentityUser> signInManager, CartKingDbContext context, UserManager<IdentityUser> userManager,ILogger<AccountController> logger)
         {
             _context = context;
             _signInManager = signInManager;
             _userManager = userManager;
+            _logger =logger;
         }
 
         // --- Dashboard Logic ---
@@ -138,16 +140,26 @@ namespace Cart_King.Controllers
             }
 
             profile.MobileNumber = model.MobileNumber;
-           int ContactDataInRows =  await _context.SaveChangesAsync();
-
-            if (ContactDataInRows > 0)
+            
+            try 
             {
-               TempData["ContactSuccess"] = "Contact details updated!"; 
+                await _context.SaveChangesAsync();
+
+
+             TempData["ContactSuccess"] = "Contact details updated!"; 
+            
+               return RedirectToAction("Index", new { activeTab = "contact" });
             }
             
-           else TempData["ContactError"] = "Error, please try again"; 
+           catch (DbUpdateException error) 
+           {    
+                _logger.LogError (error, "Database failed to save contact details");
+                TempData["ContactError"] = "Error, please try again"; 
+
+                return View(model);
+           }            
             
-            return RedirectToAction("Index", new { activeTab = "contact" });
+            
         }
         
         [HttpGet]
