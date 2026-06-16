@@ -35,8 +35,9 @@
                         <a class="list-group-item list-group-item-action text-center" asp-area="Identity" asp-page="/Account/Manage/Index" role="button">
                                 Profile Settings
                         </a>
-            <a class="list-group-item list-group-item-action" id="list-wish-list" data-bs-toggle="list"
-               href="#list-wish" style="text-align:center;" role="tab" aria-controls="list-wish">My Wishlist</a>
+                <a class="list-group-item list-group-item-action @(currentTab == "wishlist" ? "active" : "")"
+                    id="list-wish-list" data-bs-toggle="list" href="#list-wish" style="text-align:center;" role="tab"
+                    aria-controls="list-wish">My Wishlist</a>
 
             <div class="list-group-item list-group-item-action p-0">
                 <form id="logoutForm" asp-controller="Account" asp-action="Logout" method="post" class="m-0">
@@ -118,9 +119,10 @@
                         @TempData["ContactError"]
                     </div>
                 }
-            </div>
-
-            <div class="tab-pane fade" id="list-wish" role="tabpanel" aria-labelledby="list-wish-list">...</div>
+            </div>    
+                <div class="tab-pane fade @(currentTab == "wishlist" ? "show active" : "")" id="list-wish" role="tabpanel" aria-labelledby="list-wish-list">
+                    @await Html.PartialAsync("_GetWishlistPartial", Model.Wishlist)
+                </div>
         </div>
     </div>
 </div>
