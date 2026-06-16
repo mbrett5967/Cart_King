@@ -20,7 +20,7 @@ namespace Cart_King.Controllers
        
         private readonly CartKingDbContext _context;
 
-        public WishlistController(SignInManager<IdentityUser> signInManager, CartKingDbContext context,UserManager<IdentityUser> userManager)
+        public WishlistController( CartKingDbContext context,UserManager<IdentityUser> userManager)
         {
             _context = context;
             _userManager = userManager;
@@ -39,27 +39,37 @@ namespace Cart_King.Controllers
             }
 
             //check for any duplicate items in wishlist
-            var itemCheck = await _context.WishlistItems
-            .AnyAsync(w => w.IdentityUserId == userId && w.ProductId == productId);
+            bool itemCheck = await _context.WishlistItems.AnyAsync(w => w.IdentityUserId == userId && w.ProductId == productId);
+            
           
-            if (itemCheck)
+            if (itemCheck == false)
             {
+
+
+                var newItem = new WishlistItem
+                {
+                    IdentityUserId = userId, 
+                    ProductId = productId 
+                   
+                };
+                _context.WishlistItems.Add(newItem);
+                TempData[$"IsInWishlist_{productId}"] = false;
                 //add redirct to action for state changes to icon etc
-               TempData[$"IsInWishlist_{productId}"] = true; 
-               return LocalRedirect(returnUrl);
+               
             }
 
-            // if item check is false
-            var newItem = new WishlistItem 
-            { 
-                IdentityUserId = userId, 
-                ProductId = productId 
+            
+            else  
+            {   
+                TempData[$"IsInWishlist_{productId}"] = true; 
+               return LocalRedirect(returnUrl);
+
             };
 
            //Save changes 
-            _context.WishlistItems.Add(newItem);
+            
             await _context.SaveChangesAsync();
-            TempData[$"IsInWishlist_{productId}"] = true; 
+            
 
             //safety fallback to prevent redirect vulnerability 
             if (!string.IsNullOrEmpty(returnUrl))
@@ -71,9 +81,78 @@ namespace Cart_King.Controllers
 
         }
 
+        public async Task<IActionResult> GetWishlist()
+        {
+            var userId = _userManager.GetUserId(User);
+            
+            if (userId == null) 
+            {
+                return Unauthorized();
+            }
+
+            var findWishlist = await _context.WishlistItems
+            .Where(w => w.IdentityUserId == userId)
+            .Include(w => w.Product)
+            .ThenInclude(p => p.Category) //loads the linked product table and category
+            .ToListAsync();
+
+            // Maps each WishlistItem to WishlistViewModel
+            var viewModels = findWishlist.Select(w => new WishlistViewModel
+            {
+               Name = w.Product.Name,
+               Price = w.Product.Price,
+               ProductId = w.Product.ProductId,
+               CategoryName = w.Product.Category?.Name ?? "None",
+               ImageUrl = w.Product.ImageUrl,
+               ShortDescription = w.Product.ShortDescription, 
+               StockQuantity = w.Product.StockQuantity
+            }).ToList();
+          
+            return PartialView("_GetWishlistPartial", viewModels);
+        }
+
+         [HttpPost]
+       public async Task<IActionResult> RemoveItem(int productId, string returnUrl)
+        {
+            var userId = _userManager.GetUserId(User);
+            
+            if (userId == null) //sends unregistered users to login
+            {
+                return Unauthorized();
+            }
+            
+            var existingItem = await _context.WishlistItems
+                .FirstOrDefaultAsync(w => w.IdentityUserId == userId && w.ProductId == productId);
+            
+            if (existingItem != null)
+            {
+                _context.WishlistItems.Remove(existingItem);
+                await _context.SaveChangesAsync();
+
+                if (!string.IsNullOrEmpty(returnUrl))
+                {
+                    return LocalRedirect(returnUrl);
+                }
+
+                return RedirectToAction("Index", "Account", new { activeTab = "wishlist" });
+            }
+            else 
+            {
+                if (!string.IsNullOrEmpty(returnUrl))
+                {
+                    return LocalRedirect(returnUrl);
+                }
+
+                return RedirectToAction("Index", "Account", new { activeTab = "wishlist" });
+            }
 
 
 
+
+
+
+            
+        }
 
     }
 }
