@@ -46,12 +46,14 @@
                 
 
                     <!-- Checked against the same Route ID so TempData evaluates correctly -->
-                    @if (TempData[$"IsInWishlist_{ViewContext.RouteData.Values["id"]}"] != null && (bool?)TempData[$"IsInWishlist_{ViewContext.RouteData.Values["id"]}"] == true)
+                    @if (TempData[$"IsInWishlist_{ViewContext.RouteData.Values["id"]}"] != null && (bool?)TempData[$"IsInWishlist_{ViewContext.RouteData.Values["Id"]}"] == true)
                     {
                         <!--Item is saved [placeholder]-->
                         <button type="submit" class="btn btn-success w-100 rounded-pill" disabled>
                             ✔️ Saved to Wishlist
                         </button>
+                        
+                        <p class="my-3">Wishlist: <span class="text-primary">Item is in your wishlist!</span></p>
                     }
                     else
                     {
