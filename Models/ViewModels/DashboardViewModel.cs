@@ -13,7 +13,10 @@ namespace Cart_King.Models.ViewModels
       
         public DeliveryAddressViewModel DeliveryAddress { get; set; } =null!;
         public ContactDetailsViewModel ContactDetails { get; set; } = null!;
+        public ProductDetailsViewModel ProductDetails { get; set; } = null!;
 
+       
+        public List<WishlistViewModel> Wishlist { get; set; } = new();
 
       // Helper 
         public string ActiveTab { get; set; } = "delivery";
