@@ -63,6 +63,24 @@ namespace Cart_King.Controllers
                 }
             };
 
+            // Populate wishlist for dashboard tab
+            var wishlistItems = await _context.WishlistItems
+                .Where(w => w.IdentityUserId == userId)
+                .Include(w => w.Product)
+                .ThenInclude(p => p.Category)
+                .ToListAsync();
+
+            model.Wishlist = wishlistItems.Select(w => new WishlistViewModel
+            {
+                Name = w.Product.Name,
+                Price = w.Product.Price,
+                ProductId = w.Product.ProductId,
+                CategoryName = w.Product.Category?.Name ?? "None",
+                ImageUrl = w.Product.ImageUrl,
+                ShortDescription = w.Product.ShortDescription,
+                StockQuantity = w.Product.StockQuantity
+            }).ToList();
+
             return View(model);
         }
 
