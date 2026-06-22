@@ -22,5 +22,6 @@ namespace Cart_King.Models.ViewModels
      public string ImageUrl { get; set; } = string.Empty;
      public string ShortDescription { get; set; } = string.Empty;
      public int StockQuantity { get; set;}
+     public bool IsInWishlist { get; set; }
   }
 }                
