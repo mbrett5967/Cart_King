@@ -35,35 +35,32 @@
 
                 <button class="btn btn-warning btn-lg w-100 rounded-pill mb-2">Add to Basket</button>
                 <button class="btn btn-orange btn-lg w-100 rounded-pill" style="background-color: #ffa41c;">Buy Now</button>
-                
-                <!-- WISHLIST FORM -->
-                <form asp-controller="Wishlist" 
-                    asp-action="AddToWishlist" 
-                    asp-route-returnUrl="@Context.Request.Path@Context.Request.QueryString"
-                    method="post" class="mt-2">
-                    <!-- Grab the Product ID from the URL Route -->
-                    <input type="hidden" name="productId" value="@ViewContext.RouteData.Values["id"]" />
-                
-
-                    <!-- Checked against the same Route ID so TempData evaluates correctly -->
-                    @if (TempData[$"IsInWishlist_{ViewContext.RouteData.Values["id"]}"] != null && (bool?)TempData[$"IsInWishlist_{ViewContext.RouteData.Values["Id"]}"] == true)
+                   
+                   <!--Uses wishlist check in details action ProductController -->
+                    @if (Model.IsInWishlist) 
                     {
-                        <!--Item is saved [placeholder]-->
-                        <button type="submit" class="btn btn-success w-100 rounded-pill" disabled>
-                            ✔️ Saved to Wishlist
-                        </button>
-                        
-                        <p class="my-3">Wishlist: <span class="text-primary">Item is in your wishlist!</span></p>
+                        <!-- WISHLIST FORM -->
+                      <form asp-controller="Wishlist" 
+                            asp-action="AddToWishlist" 
+                            asp-route-returnUrl="@Context.Request.Path@Context.Request.QueryString"
+                            method="post" class="mt-2">
+                            <!-- Grab the Product ID from the URL Route -->
+                          <input type="hidden" name="productId" value="@ViewContext.RouteData.Values["id"]" />
+                                
+                             <!--Item is saved [placeholder]-->
+                                <button type="submit" class="btn btn-success w-100 rounded-pill" disabled>
+                                    ✔️ Saved to Wishlist
+                                </button>
+
+                                <a class="btn btn-link" asp-controller="Account" asp-action="Index">Item is in your wishlist!</a>
+                        </form>
                     }
                     else
-                    {
-                        <!--Item is not saved [placeholder] -->
+                    { <!--Item is not saved [placeholder] -->
                         <button type="submit" class="btn btn-outline-secondary w-100 rounded-pill">
-                            ❤️ Add to Wishlist
+                         ❤️ Add to Wishlist
                         </button>
-                    }
-                </form>
-
+                    } 
             </div>
         </div>
     </div>

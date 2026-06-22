@@ -6,22 +6,25 @@ using Microsoft.EntityFrameworkCore;
 using Cart_King.Connected_Services;
 using Cart_King.Models;
 using Cart_King.Models.ViewModels;
+using Microsoft.AspNetCore.Identity;
+
 
 namespace Cart_King.Controllers
 {
     public class ProductController : Controller
     {
         private readonly CartKingDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public ProductController(CartKingDbContext context)
+        public ProductController(CartKingDbContext context,UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
         
    
-
          // Gets details view of specific product via productID
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int id,int productId)
         {
             var product = await _context.Products
                 .Include(p => p.Category)
@@ -44,10 +47,20 @@ namespace Cart_King.Controllers
                StockQuantity = product.StockQuantity
             };
           
-          return View(ViewModel);
+         // Checks via user manager if the ID has this Product in wishlist
+          var userId = _userManager.GetUserId(User);
+          if (userId == null)
+            {
+                return View (ViewModel);
+            }
+
+          bool wishlistCheck = await _context.WishlistItems.AnyAsync(w => w.IdentityUserId == userId && w.ProductId == productId);
+            // assigns bool to ViewModel Property
+            ViewModel.IsInWishlist = wishlistCheck;
+            
+            return View (ViewModel);
+
         }
-
-
 
             // search bar
               public async Task<IActionResult> Index(string searchString)
@@ -57,8 +70,8 @@ namespace Cart_King.Controllers
             if (!string.IsNullOrEmpty(searchString))
             {                                   
                 products = products.Where(p => p.Name.ToLower().Contains(searchString) // searches product name
-                                            || p.ShortDescription.ToLower().Contains (searchString) // allows description to be considered 
-                                            || p.Category !=null && p.Category.Name.ToLower().Contains (searchString)); // this fixes my dereference/reference null error
+                || p.ShortDescription.ToLower().Contains (searchString) // allows description to be considered 
+                || p.Category !=null && p.Category.Name.ToLower().Contains (searchString)); // this fixes my dereference/reference null error
             }
 
             return View(await products.ToListAsync());
@@ -77,8 +90,9 @@ namespace Cart_King.Controllers
             
             return View("Index", products);
         }
-
-      
+        
+        
+        
    
     }
 }
