@@ -120,7 +120,8 @@
                     </div>
                 }
             </div>    
-                <div class="tab-pane fade @(currentTab == "wishlist" ? "show active" : "")" id="list-wish" role="tabpanel" aria-labelledby="list-wish-list">
+                <div class="tab-pane fade @(currentTab == "wishlist" ? "show active" : "")" id="list-wish" role="tabpanel" 
+                aria-labelledby="list-wish-list">
                     @await Html.PartialAsync("_GetWishlistPartial", Model.Wishlist)
                 </div>
         </div>
