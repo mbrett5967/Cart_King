@@ -46,7 +46,7 @@
 * Using Default IdentityUser for password resets and account registration
 
 <img width="1381" height="662" alt="image" src="https://github.com/user-attachments/assets/5a97f33a-2949-4773-aa7c-aa48debd2aa9" />
-<img width="1891" height="894" alt="image" src="https://github.com/user-attachments/assets/95621774-b7c7-49a8-bff4-490d75570407" />
+<img width="1865" height="904" alt="image" src="https://github.com/user-attachments/assets/0da68d68-3ee3-4241-a323-e6f96221a376" />
 <img width="1904" height="956" alt="image" src="https://github.com/user-attachments/assets/bfff015f-83fb-4d49-b764-7717095e5f29" />
 
 
