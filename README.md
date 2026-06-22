@@ -32,6 +32,14 @@
 * TempData used to notify of success or error of saved data
   
 <img width="1904" height="806" alt="image" src="https://github.com/user-attachments/assets/aed28348-016b-4e32-8065-411c7abbcf18" />
+<h2>My Wishlist</h2>
+
+* Add or Remove actions for user
+* View product via correct ProductId, utilising existing code showcasing modularity
+* Empty wishlist will display an alert, prompting user to add items 
+
+<img width="1601" height="634" alt="image" src="https://github.com/user-attachments/assets/1edde675-4e6d-4685-a110-d96765924c91" />
+
 <h2>Working Email services for Authentication</h2>
 
 * Initial implementation using Mailtrap SMTP Sandbox
