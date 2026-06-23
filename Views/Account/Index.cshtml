@@ -32,12 +32,15 @@
                id="list-contact-list" data-bs-toggle="list" href="#list-contact" style="text-align:center;" role="tab"
                aria-controls="list-contact">Contact Details</a>
 
-                        <a class="list-group-item list-group-item-action text-center" asp-area="Identity" asp-page="/Account/Manage/Index" role="button">
-                                Profile Settings
-                        </a>
-                <a class="list-group-item list-group-item-action @(currentTab == "wishlist" ? "active" : "")"
+            <a class="list-group-item list-group-item-action @(currentTab == "wishlist" ? "active" : "")"
                     id="list-wish-list" data-bs-toggle="list" href="#list-wish" style="text-align:center;" role="tab"
-                    aria-controls="list-wish">My Wishlist</a>
+                    aria-controls="list-wish">My Wishlist</a>         
+                        
+                        
+            <a class="list-group-item list-group-item-action text-center" asp-area="Identity" asp-page="/Account/Manage/Index" role="button">
+                                Account Settings
+                        </a>
+               
 
             <div class="list-group-item list-group-item-action p-0">
                 <form id="logoutForm" asp-controller="Account" asp-action="Logout" method="post" class="m-0">
