@@ -24,8 +24,9 @@ namespace Cart_King.Controllers
         
    
          // Gets details view of specific product via productID
-        public async Task<IActionResult> Details(int id,int productId)
+        public async Task<IActionResult> Details(int id)
         {
+            var productId = id; // can only use one param for single entity, fixed bugged wishlist behaviour. so combined the two. 
             var product = await _context.Products
                 .Include(p => p.Category)
                 .FirstOrDefaultAsync(m => m.ProductId == id);
