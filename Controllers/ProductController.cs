@@ -56,8 +56,13 @@ namespace Cart_King.Controllers
             }
 
           bool wishlistCheck = await _context.WishlistItems.AnyAsync(w => w.IdentityUserId == userId && w.ProductId == productId);
-            // assigns bool to ViewModel Property
+            // assigns bool to ViewModel Property for button to change state
             ViewModel.IsInWishlist = wishlistCheck;
+
+            // pops open the quantity increment button for basket item if true
+          bool BasketCheck = await _context.BasketItems.AnyAsync(w => w.IdentityUserId == userId && w.ProductId == productId);
+            ViewModel.IsInBasket = BasketCheck;
+
             
             return View (ViewModel);
 

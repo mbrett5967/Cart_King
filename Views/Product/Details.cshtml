@@ -32,8 +32,15 @@
                 <p class="@(Model.StockQuantity > 0 ? "text-success" : "text-danger")">
                     @(Model.StockQuantity > 0 ? $"In Stock ({Model.StockQuantity} available)" : "Out of Stock")
                 </p>
+                <form asp-controller="Basket"
+                      asp-action="AddToBasket"
+                      asp-route-returnUrl="@Context.Request.Path@Context.Request.QueryString"
+                      method="post"
+                      class="mt-2">
+                    <input type="hidden" name="Id" value="@ViewContext.RouteData.Values["id"]" />
+                    <button class="btn btn-warning btn-lg w-100 rounded-pill mb-2">Add to Basket</button>
+                </form>
 
-                <button class="btn btn-warning btn-lg w-100 rounded-pill mb-2">Add to Basket</button>
                 <button class="btn btn-orange btn-lg w-100 rounded-pill" style="background-color: #ffa41c;">Buy Now</button>
                 
                 <!--Uses wishlist check in details action ProductController -->
