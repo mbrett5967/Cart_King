@@ -1,0 +1,62 @@
+
+@model List<Cart_King.Models.ViewModels.BasketItemViewModel>
+
+<div class="card p-4 mt-4 border-0 bg-light">
+    <h4 class="fw mb-3">Basket</h4>
+    
+    @if (Model != null && Model.Count > 0)
+    {
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead class="table-light table-sm">
+                    <tr>
+                        <th scope= "col" class="fs-7 text-muted">Product</th>
+                        <th scope= "col" class="fs-7 text-muted">Quantity</th>
+                        <th scope= "col" class="fs-7 text-muted">Price</th>
+                        <th scope= "col" class="fs-7 text-muted">Stock</th>
+                        <th scope= "col" class="fs-7 text-muted">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <img src="@item.ImageUrl" alt="@item.Name" style="width: 50px; height: 50px; object-fit: cover; margin-right: 14px; border-radius: 4px;" />
+                                    <div>
+                                        <p class="mb-0 fw-light small">@item.Name</p>
+                                        <p class="mb-0 text-muted small">@item.ShortDescription</p>
+                                    </div>
+                                </div>
+                             <td class="text-success fw">@item.Quantity.ToString("0")</td>   
+                            </td>
+                            <td class="text-success fw">£@item.Price.ToString("0.00")</td>
+                            <td>
+                                <span class="@(item.StockQuantity > 0 ? "badge bg-success text-white fs-7 fw-normal" : "badge bg-danger text-white fs-7 fw-normal")">
+                                    @(item.StockQuantity > 0 ? $"{item.StockQuantity} in stock" : "Out of stock")
+                                </span>
+                            </td>
+                            <td>
+                                <form asp-controller="Product" asp-action= "Details" asp-route-id="@item.ProductId" method="post" class="d-inline">
+                                 <input type="hidden" name="productId" value="@item.ProductId" />   
+                                 <button class="btn btn-sm btn-primary">View</button>
+                                </form> 
+                                <form asp-controller="Wishlist" asp-action="RemoveItem" method="post" class="d-inline">
+                                    <input type="hidden" name="productId" value="@item.ProductId" />
+                                    <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info">
+            <p class="mb-0">Your Basket is empty. <a href="/Product/Index">Start adding products!</a></p>
+        </div>
+    }
+</div>

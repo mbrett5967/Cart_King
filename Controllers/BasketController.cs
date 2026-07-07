@@ -29,9 +29,42 @@ namespace Cart_King.Controllers
             _logger =logger;
         }
 
-        // --- Dashboard Logic ---
-        
-        [HttpPost]
+       
+       public async Task<IActionResult> Index()
+        {
+            
+            // Get Id of current Logged-in User
+            var userId = _userManager.GetUserId(User);
+            
+            if (userId == null) 
+            {
+                return Unauthorized();
+            }
+
+            // Search for the users basket on DB
+            var findBasket = await _context.BasketItems //Loads basketItems table
+            .Where(w => w.IdentityUserId == userId) // Look for IDentityID in table that matches current users ID
+            .Include(w => w.Product) //Include the product table
+            .ToListAsync();
+
+            var viewModels = findBasket.Select(w => new BasketItemViewModel
+            {
+               Name = w.Product.Name,
+               Price = w.Product.Price,
+               Quantity = w.Quantity,
+               ProductId = w.Product.ProductId,
+               ImageUrl = w.Product.ImageUrl,
+               ShortDescription = w.Product.ShortDescription, 
+               StockQuantity = w.Product.StockQuantity
+            }).ToList();
+
+            return View ("Index",viewModels);
+
+        }
+       
+       
+       
+       [HttpPost]
         public async Task<IActionResult> AddToBasket(int Id, string returnUrl)
         {
             
