@@ -1,50 +1,83 @@
-
 @model List<Cart_King.Models.ViewModels.BasketItemViewModel>
 
 <div class="card p-4 mt-4 border-0 bg-light">
     <h4 class="fw mb-3">Basket</h4>
-    
+
     @if (Model != null && Model.Count > 0)
     {
         <div class="table-responsive">
-            <table class="table table-hover">
+            <table class="table table-hover align-middle">
                 <thead class="table-light table-sm">
                     <tr>
-                        <th scope= "col" class="fs-7 text-muted">Product</th>
-                        <th scope= "col" class="fs-7 text-muted">Quantity</th>
-                        <th scope= "col" class="fs-7 text-muted">Price</th>
-                        <th scope= "col" class="fs-7 text-muted">Stock</th>
-                        <th scope= "col" class="fs-7 text-muted">Action</th>
+                        <th scope="col" class="fs-7 text-muted">Product</th>
+                        <th scope="col" class="fs-7 text-muted" style="width: 140px;">Quantity</th>
+                        <th scope="col" class="fs-7 text-muted">Price</th>
+                        <th scope="col" class="fs-7 text-muted">Stock</th>
+                        <th scope="col" class="fs-7 text-muted">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model)
+                    @foreach (var basketItem in Model)
                     {
-                        <tr>
+                        <!-- unique ID so JavaScript can remove the row if quantity reaches 0 -->
+                        <tr id="basket-row-@basketItem.ProductId">
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <img src="@item.ImageUrl" alt="@item.Name" style="width: 50px; height: 50px; object-fit: cover; margin-right: 14px; border-radius: 4px;" />
+                                    <img src="@basketItem.ImageUrl" alt="@basketItem.Name"
+                                         style="width: 50px; height: 50px; object-fit: cover; margin-right: 14px; border-radius: 4px;" />
                                     <div>
-                                        <p class="mb-0 fw-light small">@item.Name</p>
-                                        <p class="mb-0 text-muted small">@item.ShortDescription</p>
+                                        <p class="mb-0 fw-light small">@basketItem.Name</p>
+                                        <p class="mb-0 text-muted small">@basketItem.ShortDescription</p>
                                     </div>
                                 </div>
-                             <td class="text-success fw">@item.Quantity.ToString("0")</td>   
                             </td>
-                            <td class="text-success fw">£@item.Price.ToString("0.00")</td>
+
+                            <!-- QUANTITY COLUMN WITH CUSTOM INNER BUTTONS -->
                             <td>
-                                <span class="@(item.StockQuantity > 0 ? "badge bg-success text-white fs-7 fw-normal" : "badge bg-danger text-white fs-7 fw-normal")">
-                                    @(item.StockQuantity > 0 ? $"{item.StockQuantity} in stock" : "Out of stock")
+                                <!-- Clean, flexible border badge that wraps everything tightly -->
+                                <div class="d-inline-flex align-items-center justify-content-between bg-white border rounded p-1"
+                                     style="width: 100px; height: 32px;">
+
+                                    <!-- Minus Button (Plain icon link, styled cleanly) -->
+                                    <button
+                                        class="btn btn-link text-muted change-qty p-0 text-decoration-none d-flex align-items-center justify-content-center"
+                                        type="button" data-product-id="@basketItem.ProductId" data-adjustment="-1"
+                                        style="box-shadow: none; width: 24px; height: 24px;">
+                                        <i class="bi bi-dash fs-5"></i>
+                                    </button>
+
+                                    <!-- Centered Digit Display -->
+                                    <span class="text-success fw-bold small flex-grow-1 text-center" id="qty-@basketItem.ProductId">
+                                        @basketItem.Quantity.ToString("0")
+                                    </span>
+
+                                    <!-- Plus Button (Plain icon link, styled cleanly) -->
+                                    <button
+                                        class="btn btn-link text-muted change-qty p-0 text-decoration-none d-flex align-items-center justify-content-center"
+                                        type="button" data-product-id="@basketItem.ProductId" data-adjustment="1"
+                                        style="box-shadow: none; width: 24px; height: 24px;">
+                                        <i class="bi bi-plus fs-5"></i>
+                                    </button>
+
+                                </div>
+                            </td>
+
+                            <td class="text-success fw">£@basketItem.Price.ToString("0.00")</td>
+                            <td>
+                                <span
+                                    class="@(basketItem.StockQuantity > 0 ? "badge bg-success text-white fs-7 fw-normal" : "badge bg-danger text-white fs-7 fw-normal")">
+                                    @(basketItem.StockQuantity > 0 ? $"{basketItem.StockQuantity} in stock" : "Out of stock")
                                 </span>
                             </td>
                             <td>
-                                <form asp-controller="Product" asp-action= "Details" asp-route-id="@item.ProductId" method="post" class="d-inline">
-                                 <input type="hidden" name="productId" value="@item.ProductId" />   
-                                 <button class="btn btn-sm btn-primary">View</button>
-                                </form> 
-                                <form asp-controller="Wishlist" asp-action="RemoveItem" method="post" class="d-inline">
-                                    <input type="hidden" name="productId" value="@item.ProductId" />
-                                    <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+                                <form asp-controller="Product" asp-action="Details" asp-route-id="@basketItem.ProductId" method="post"
+                                      class="d-inline">
+                                    <input type="hidden" name="productId" value="@basketItem.ProductId" />
+                                    <button class="btn btn-sm btn-primary">View</button>
+                                </form>
+                                <form asp-controller="Basket" asp-action="RemoveBasketItem" method="post" class="d-inline">
+                                    <input type="hidden" name="productId" value="@basketItem.ProductId" />
+                                    <button type="submit" data-confirm= "Completely remove basket item?"class="btn btn-sm btn-danger">Remove</button>
                                 </form>
                             </td>
                         </tr>
@@ -60,3 +93,56 @@
         </div>
     }
 </div>
+
+@section Scripts {
+    <!-- Changes quantity using increment icon -->
+    <script>
+        document.querySelectorAll('.change-qty').forEach(button => {
+            button.addEventListener('click', function () {
+                const productId = this.getAttribute('data-product-id');
+                const adjustment = parseInt(this.getAttribute('data-adjustment'));
+
+                const formData = new FormData();
+                formData.append('Id', productId);
+                formData.append('adjustment', adjustment);
+
+                fetch('/Basket/AdjustQuantity', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            if (data.itemRemoved) {
+                                // Automatically drops the row out of the view if quantity drops to 0
+                                const row = document.getElementById(`basket-row-${productId}`);
+                                if (row) row.remove();
+
+                                // If the cart is now empty, reload the page to trigger the empty alert UI state
+                                if (document.querySelectorAll('tbody tr').length === 0) {
+                                    window.location.reload();
+                                }
+                            } else {
+                                // Update the digit inside custom button group
+                                document.getElementById(`qty-${productId}`).innerText = data.newQty;
+                            }
+                        } else {
+                            alert(data.message || "An error occurred.");
+                        }
+                    })
+                    .catch(error => console.error('Error updating basket:', error));
+            });
+        });
+    </script>
+    <!-- Confirmation popup-->
+            <script>
+                    jQuery(document).ready(function () {
+            jQuery('[data-confirm]').click(function (e) {
+                if (!confirm(jQuery(this).attr("data-confirm")))
+                {
+                e.preventDefault();
+                }
+            });
+            });
+            </script>
+}
