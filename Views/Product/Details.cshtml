@@ -1,36 +1,42 @@
-@model Cart_King.Models.ViewModels.ProductDetailsViewModel
+@model Cart_King.Models.ViewModels.DashboardViewModel
+
+@{
+    var product = Model.ProductDetails;
+    var basketItem = Model.BasketItems;
+    var productId = ViewContext.RouteData.Values["id"]?.ToString();
+}
 
 <div class="container mt-5">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a asp-action="Index">All Products</a></li>
-            <li class="breadcrumb-item active">@Model.CategoryName</li>
+            <li class="breadcrumb-item active">@product.CategoryName</li>
         </ol>
     </nav>
 
     <div class="row">
         <div class="col-md-6 text-center">
-            <img src="@Model.ImageUrl?" class="img-fluid rounded shadow-sm" alt="@Model.Name"
+            <img src="@product.ImageUrl?" class="img-fluid rounded shadow-sm" alt="@product.Name"
                  style="max-height: 500px;">
         </div>
 
         <div class="col-md-6">
-            <h1 class="display-5 fw-bold">@Model.Name</h1>
+            <h1 class="display-5 fw-bold">@product.Name</h1>
             <p class="text-muted">Brand: Cart King Hardware</p>
 
             <hr />
 
-            <h3 class="text-success">£@Model.Price</h3>
+            <h3 class="text-success">£@product.Price</h3>
 
             <div class="my-4">
                 <h5>About this item:</h5>
-                <p>@Model.ShortDescription</p>
+                <p>@product.ShortDescription</p>
             </div>
 
             <div class="card bg-light border-secondary p-3">
                 <p class="mb-1">Delivery: <span class="text-primary">FREE Delivery Tomorrow</span></p>
-                <p class="@(Model.StockQuantity > 0 ? "text-success" : "text-danger")">
-                    @(Model.StockQuantity > 0 ? $"In Stock ({Model.StockQuantity} available)" : "Out of Stock")
+                <p class="@(product.StockQuantity > 0 ? "text-success" : "text-danger")">
+                    @(product.StockQuantity > 0 ? $"In Stock ({product.StockQuantity} available)" : "Out of Stock")
                 </p>
                 <form asp-controller="Basket"
                       asp-action="AddToBasket"
@@ -38,11 +44,36 @@
                       method="post"
                       class="mt-2">
                     <input type="hidden" name="Id" value="@ViewContext.RouteData.Values["id"]" />
-                    <button class="btn btn-warning btn-lg w-100 rounded-pill mb-2">Add to Basket</button>
-                </form>
 
-                <button class="btn btn-orange btn-lg w-100 rounded-pill" style="background-color: #ffa41c;">Buy Now</button>
-                
+                    @if (product.IsInBasket)
+                    {
+                        <div class="d-inline-flex align-items-center justify-content-between bg-white border rounded-pill p-1 mb-2"
+                             style="width: 112px; height: 38px;">
+                            <button class="btn btn-link text-muted change-qty p-0 text-decoration-none d-flex align-items-center justify-content-center"
+                                    type="button" data-product-id="@productId" data-adjustment="-1"
+                                    style="box-shadow: none; width: 28px; height: 28px;">
+                                <i class="bi bi-dash fs-5"></i>
+                            </button>
+
+                            <span class="text-success fw-bold small flex-grow-1 text-center" id="qty-@productId">
+                                @basketItem.Quantity.ToString("0")
+                            </span>
+
+                            <button class="btn btn-link text-muted change-qty p-0 text-decoration-none d-flex align-items-center justify-content-center"
+                                    type="button" data-product-id="@productId" data-adjustment="1"
+                                    style="box-shadow: none; width: 28px; height: 28px;">
+                                <i class="bi bi-plus fs-5"></i>
+                            </button>
+                        </div>
+                    }
+                    else
+                    {
+                        <button class="btn btn-warning btn-lg w-100 rounded-pill mb-2">Add to Basket</button>
+                    }
+                </form>
+                <form asp-controller="basket" asp-action="Index" asp-route-id="@productId" method="post" class="d-inline">
+                    <button class="btn btn-orange btn-lg w-100 rounded-pill" style="background-color: #ffa41c;">Buy Now</button>
+                </form>    
                 <!--Uses wishlist check in details action ProductController -->
                 <!-- WISHLIST FORM -->
                 <form asp-controller="Wishlist" 
@@ -52,7 +83,7 @@
                     <!-- Grab the Product ID from the URL Route -->
                     <input type="hidden" name="productId" value="@ViewContext.RouteData.Values["id"]" />
                     
-                    @if (Model.IsInWishlist) 
+                    @if (product.IsInWishlist) 
                     {
                         <!--Item is saved [placeholder]-->
                         <button type="submit" class="btn btn-success w-100 rounded-pill" disabled>
@@ -76,3 +107,44 @@
         </div>
     </div>
 </div>
+@section Scripts {
+    <!-- Changes quantity using increment icon -->
+    <script>
+        document.querySelectorAll('.change-qty').forEach(button => {
+            button.addEventListener('click', function () {
+                const productId = this.getAttribute('data-product-id');
+                const adjustment = parseInt(this.getAttribute('data-adjustment'));
+
+                const formData = new FormData();
+                formData.append('Id', productId);
+                formData.append('adjustment', adjustment);
+
+                fetch('/Basket/AdjustQuantity', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            if (data.itemRemoved) {
+                                // Automatically drops the row out of the view if quantity drops to 0
+                                const row = document.getElementById(`basket-row-${productId}`);
+                                if (row) row.remove();
+
+                                // If the cart is now empty, reload the page to trigger the empty alert UI state
+                                if (document.querySelectorAll('tbody tr').length === 0) {
+                                    window.location.reload();
+                                }
+                            } else {
+                                // Update the digit inside custom button group
+                                document.getElementById(`qty-${productId}`).innerText = data.newQty;
+                            }
+                        } else {
+                            alert(data.message || 'An error occurred.');
+                        }
+                    })
+                    .catch(error => console.error('Error updating basket:', error));
+            });
+        });
+    </script>
+}
