@@ -15,7 +15,7 @@ namespace Cart_King.Models.ViewModels
         public ContactDetailsViewModel ContactDetails { get; set; } = null!;
         public ProductDetailsViewModel ProductDetails { get; set; } = null!;
 
-       
+        public BasketItemViewModel BasketItems { get; set; } = null!;
         public List<WishlistViewModel> Wishlist { get; set; } = new();
 
       // Helper 

@@ -37,34 +37,45 @@ namespace Cart_King.Controllers
               return NotFound();
             }
             
-            // sends data to viewmodel
-            var ViewModel = new ProductDetailsViewModel
+            var viewModel = new DashboardViewModel
             {
-               Name = product.Name,
-               Price = product.Price,
-               CategoryName = product.Category?.Name ?? "None",
-               ImageUrl = product.ImageUrl,             // Transferring the data
-               ShortDescription = product.ShortDescription, 
-               StockQuantity = product.StockQuantity
+                ProductDetails = new ProductDetailsViewModel
+                {
+                    Name = product.Name,
+                    Price = product.Price,
+                    CategoryName = product.Category?.Name ?? "None",
+                    ImageUrl = product.ImageUrl,
+                    ShortDescription = product.ShortDescription,
+                    StockQuantity = product.StockQuantity
+                },
+                BasketItems = new BasketItemViewModel
+                {
+                    ProductId = product.ProductId,
+                    Name = product.Name,
+                    Price = product.Price,
+                    CategoryName = product.Category?.Name ?? "None",
+                    ImageUrl = product.ImageUrl,
+                    ShortDescription = product.ShortDescription,
+                    StockQuantity = product.StockQuantity
+                }
             };
-          
-         // Checks via user manager if the ID has this Product in wishlist
-          var userId = _userManager.GetUserId(User);
-          if (userId == null)
+
+            var userId = _userManager.GetUserId(User);
+            if (userId == null)
             {
-                return View (ViewModel);
+                return View(viewModel);
             }
 
-          bool wishlistCheck = await _context.WishlistItems.AnyAsync(w => w.IdentityUserId == userId && w.ProductId == productId);
-            // assigns bool to ViewModel Property for button to change state
-            ViewModel.IsInWishlist = wishlistCheck;
+            var basketItem = await _context.BasketItems
+                .FirstOrDefaultAsync(w => w.IdentityUserId == userId && w.ProductId == productId);
 
-            // pops open the quantity increment button for basket item if true
-          bool BasketCheck = await _context.BasketItems.AnyAsync(w => w.IdentityUserId == userId && w.ProductId == productId);
-            ViewModel.IsInBasket = BasketCheck;
+            bool wishlistCheck = await _context.WishlistItems.AnyAsync(w => w.IdentityUserId == userId && w.ProductId == productId);
+            viewModel.ProductDetails.IsInWishlist = wishlistCheck;
+            viewModel.ProductDetails.IsInBasket = basketItem != null;
+            viewModel.BasketItems.Quantity = basketItem?.Quantity ?? 0;
+            viewModel.BasketItems.BasketItemId = basketItem?.BasketItemId ?? 0;
 
-            
-            return View (ViewModel);
+            return View(viewModel);
 
         }
 
