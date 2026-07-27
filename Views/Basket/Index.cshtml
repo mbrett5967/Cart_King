@@ -14,6 +14,7 @@
                         <th scope="col" class="fs-7 text-muted">Price</th>
                         <th scope="col" class="fs-7 text-muted">Stock</th>
                         <th scope="col" class="fs-7 text-muted">Action</th>
+                        <th scope="col" class="fs-7 text-muted">Total:</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -80,10 +81,26 @@
                                     <button type="submit" data-confirm= "Completely remove basket item?"class="btn btn-sm btn-danger">Remove</button>
                                 </form>
                             </td>
+                            <td class="text-success fw" id="item-total-@basketItem.ProductId">
+                                £@((basketItem.Price * basketItem.Quantity).ToString("0.00"))
+                            </td>
                         </tr>
                     }
                 </tbody>
             </table>
+            <div class="d-flex justify-content-end align-items-center mt-3 pt-3">
+                <div class="d-flex align-items-center">
+                    <span class="fw-default text-dark fs-5 mb-0">Subtotal:</span>
+                    <span class="text-success fw-default fs-4 mb-0" id="basket-grand-total">
+                        £@Model.Sum(x => x.Price * x.Quantity).ToString("0.00")
+                    </span>
+                </div>
+                
+            </div>
+            <div class="d-flex justify-content-end align-items-center mt-3 pt-3">
+               <button type="button" class="btn btn-primary btn-lg">Proceed to Checkout</button>
+            </div> 
+                
         </div>
     }
     else
