@@ -46,6 +46,23 @@
 * Using Default IdentityUser for password resets and account registration
 
 <img width="1381" height="662" alt="image" src="https://github.com/user-attachments/assets/5a97f33a-2949-4773-aa7c-aa48debd2aa9" />
+
+<h2>Basket</h2>
+
+* **Asynchronous Cart Updates:**
+  - Modify item quantities seamlessly using AJAX (`fetch` API) without page refreshes.
+* **Dynamic Price Calculations:**
+  - Real-time updates for both individual line items and overall grand subtotals.
+* **Inventory Protection:**
+  - Prevents cart quantities from exceeding live database stock limits.
+* **Identity-Bound Carts:**
+  - Fully integrated with ASP.NET Core Identity for secure, user-specific basket persistence.
+* **Interactive UI:**
+  - Smooth row removals, custom quantity control inputs, and deletion confirmation safeguards.
+
+<img width="1898" height="758" alt="image" src="https://github.com/user-attachments/assets/16f16167-fc62-4407-aa5c-2a2d8d6b2aad" />
+
+
 <img width="1865" height="904" alt="image" src="https://github.com/user-attachments/assets/0da68d68-3ee3-4241-a323-e6f96221a376" />
 <img width="1904" height="956" alt="image" src="https://github.com/user-attachments/assets/bfff015f-83fb-4d49-b764-7717095e5f29" />
 
