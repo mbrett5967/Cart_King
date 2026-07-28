@@ -90,8 +90,8 @@
             </table>
             <div class="d-flex justify-content-end align-items-center mt-3 pt-3">
                 <div class="d-flex align-items-center">
-                    <span class="fw-default text-dark fs-5 mb-0">Subtotal:</span>
-                    <span class="text-success fw-default fs-4 mb-0" id="basket-grand-total">
+                    <span class="fw-default text-dark fs-5 mb-0 me-1 mt-1">Subtotal:</span>
+                    <span class="text-success fw-default fs-3 mb-0" id="basket-grand-total">
                         £@Model.Sum(x => x.Price * x.Quantity).ToString("0.00")
                     </span>
                 </div>
