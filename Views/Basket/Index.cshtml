@@ -142,7 +142,12 @@
                             } else {
                                 // Update the digit inside custom button group
                                 document.getElementById(`qty-${productId}`).innerText = data.newQty;
+                                // Update row Total
+                                document.getElementById(`item-total-${productId}`).innerText = data.itemTotal;
+                                 //Update Bottom Subtotal
+                                document.getElementById('basket-grand-total').innerText = data.basketTotal;
                             }
+                            
                         } else {
                             alert(data.message || "An error occurred.");
                         }

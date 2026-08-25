@@ -195,7 +195,7 @@ namespace Cart_King.Controllers
             await _context.SaveChangesAsync();
 
             // Calculate item total and overall basket total to send back to the UI
-            var itemTotal = basketItem.Quantity * basketItem.Product.Price;
+            var itemTotal = (basketItem.Quantity > 0) ? basketItem.Quantity * basketItem.Product.Price : 0;
 
             // Grab the new grand total for the whole basket
             var totalBasketPrice = await _context.BasketItems
@@ -206,7 +206,7 @@ namespace Cart_King.Controllers
             {
                 success = true,
                 newQty = basketItem.Quantity,
-                itemRemoved = false,
+                itemRemoved = basketItem.Quantity <= 0,
                 itemTotal = itemTotal.ToString("C"), // Formatted currency string
                 basketTotal = totalBasketPrice.ToString("C")
             });
