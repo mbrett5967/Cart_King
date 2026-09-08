@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Builder;
+using Stripe;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -65,6 +66,9 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseRouting();
+
+//Payment system
+StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
 
 app.UseAuthentication();
 app.UseAuthorization();
