@@ -1,14 +1,8 @@
 @model IEnumerable<Cart_King.Models.Product>
 
-<h2>@(ViewBag.CategoryName ?? "All Products")</h2>    
+<h2 class="mt-4">@(ViewBag.CategoryName ?? "All Products")</h2>
 
 <div class="container">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb mt-5">
-            <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home" >Home</a></li>
-            
-        </ol>
-    </nav>
     <div class="row">
         @foreach (var item in Model)
         {
