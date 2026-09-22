@@ -57,7 +57,7 @@ html {
 }
  /* logo */
 .logo img {
-    height: 100px;          
+    height: 120px;          
     width: auto;
     align-items:center;
 }
@@ -126,11 +126,11 @@ html {
 /* Dropdown elements */
 .dropdown a {
  display: block;
- color: var(--nav-text) !important;
+ color: var(--nav-background) !important;
  text-decoration: none;
- padding: 10px 30px;
+ padding: 8px 16px;
  text-transform:capitalize;
-
+ width: 100%;
 
 }
 /* Dropdown menu */
@@ -140,11 +140,11 @@ html {
     position: absolute;
     top: 65%;
     border-radius: 10px 10px 10px 10px;
-    box-shadow: 1px 0px 2px whitesmoke;
+    box-shadow: 1px 0px 2px rgb(9, 6, 6);
     display: none;
     z-index: 100;
     left: 0;
-
+    
 }
 
 /* For global page color and styles */
@@ -241,10 +241,8 @@ body {
 .nav-left .dropdown a:hover {
     color: var(--hover-text) !important;
     background-color:hsla(221, 12%, 36%, 0.957)!important;
-    padding: 5px 30px;
-    border-radius: 20px 20px 20px 20px;
-    
-   
+    padding: 8px 16px;
+    border-radius: 10px 10px 10px;
 }
 
 /* left nav hover state */
