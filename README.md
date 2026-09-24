@@ -18,12 +18,9 @@
 <h3>All, including README subject to change</h3>
 
 
->(24/03/2026): Successfully setup Email servicing using MailTrap Sandbox. Now have functional email sending for authentication and registration.
-> 
-> (15/04/2026) : Added IdentityUserId linked forms for profile dashboard. Now have Delivery address data saved and persistent for users
 
+<img width="1616" height="833" alt="image" src="https://github.com/user-attachments/assets/2c0f8440-0054-465c-88d3-1daed23393ab" />
 
-<img width="1475" height="764" alt="image" src="https://github.com/user-attachments/assets/af997f21-b43a-4f48-9ff7-0ea94264b6b5" />
 <h2>My Delivery Address Partial</h2>
 
 * Uses professional ViewModel flow, recieved data updates main model etc
