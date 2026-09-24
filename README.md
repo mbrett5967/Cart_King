@@ -6,7 +6,7 @@
   </p>
 
   <p>
-    <img src="https://img.shields.io/badge/.NET-9.0-blue?style=for-the-badge&logo=dotnet" alt=".NET 9"/>
+    <img src="https://img.shields.io/badge/.NET-10.0-blue?style=for-the-badge&logo=dotnet" alt=".NET 9"/>
     <img src="https://img.shields.io/badge/Entity%20Framework%20Core-9.0-512BD4?style=for-the-badge&logo=dotnet" alt="EF Core"/>
     <img src="https://img.shields.io/badge/PostgreSQL-18-336791?style=for-the-badge&logo=postgresql" alt="PostgreSQL"/>
   </p>
